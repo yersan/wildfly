@@ -2,7 +2,9 @@
 <feature-group-spec name="undertow" xmlns="urn:jboss:galleon:feature-group:1.0">
     <feature-group name="undertow-base"/>
     <feature spec="subsystem.undertow">
-        <param name="default-security-domain" value="other"/>
+        <unset param="default-server" />
+        <unset param="default-virtual-host" />
+        <unset param="default-servlet-container" />
         <!--
         <feature spec="subsystem.undertow.configuration.filter">
             <feature spec="subsystem.undertow.configuration.filter.response-header">
