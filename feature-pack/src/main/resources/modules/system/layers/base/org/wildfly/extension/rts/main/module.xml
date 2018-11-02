@@ -45,10 +45,10 @@
         <module name="org.jboss.as.network"/>
         <module name="org.jboss.as.jaxrs"/>
         <module name="org.jboss.as.transactions"/>
-        <module name="org.jboss.modules"/>
+        <!--<module name="org.jboss.modules"/>-->
         <module name="org.jboss.msc"/>
         <module name="org.jboss.logging"/>
-        <module name="org.jboss.vfs"/>
+        <!--<module name="org.jboss.vfs"/>-->
         <module name="org.jboss.jandex"/>
         <module name="org.jboss.jts"/>
         <module name="javax.servlet.api"/>
@@ -61,9 +61,10 @@
         <module name="org.hibernate.validator" services="export"/>
         <module name="org.jboss.narayana.rts"/>
         <module name="org.wildfly.transaction.client"/>
-        <!-- TODO WFLY-5966 validate the need for these and remove if not needed.
-             Prior to WFLY-5922 they were exported by javax.ejb.api. -->
-        <module name="javax.xml.rpc.api"/>
-        <module name="javax.rmi.api"/>
+
+        <!--&lt;!&ndash; TODO WFLY-5966 validate the need for these and remove if not needed.-->
+             <!--Prior to WFLY-5922 they were exported by javax.ejb.api. &ndash;&gt;-->
+        <!--<module name="javax.xml.rpc.api"/>-->
+        <!--<module name="javax.rmi.api"/>-->
     </dependencies>
 </module>
