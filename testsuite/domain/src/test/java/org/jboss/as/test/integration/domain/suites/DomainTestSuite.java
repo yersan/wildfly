@@ -44,6 +44,7 @@ import org.junit.runners.Suite;
         JcaCCMRuntimeOnlyProfileOpsTestCase.class,
         ModelPersistenceTestCase.class,
         ReadEnvironmentVariablesTestCase.class,
+        GlobalDirectoryDomainTestCase.class
 })
 public class DomainTestSuite {
 
