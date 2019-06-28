@@ -75,8 +75,8 @@
       <artifactId>jboss-jsf-api_2.3_spec</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.spec.javax.interceptor</groupId>
-      <artifactId>jboss-interceptors-api_1.2_spec</artifactId>
+      <groupId>jakarta.interceptor</groupId>
+      <artifactId>jakarta.interceptor-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.spec.javax.jms</groupId>
