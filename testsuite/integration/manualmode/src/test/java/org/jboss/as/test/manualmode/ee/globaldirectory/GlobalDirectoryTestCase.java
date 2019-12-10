@@ -82,10 +82,7 @@ public class GlobalDirectoryTestCase extends GlobalDirectoryBase {
         removeGlobalDirectory(GLOBAL_DIRECTORY_NAME);
         verifyDoesNotExist(GLOBAL_DIRECTORY_NAME);
 
-        // Windows won't allow to delete jars in global directory if they are still loaded by wildfly
-        if (TestSuiteEnvironment.isWindows()) {
-            restartServer();
-        }
+        reloadServer();
 
         FileUtils.deleteDirectory(GLOBAL_DIRECTORY_PATH.toAbsolutePath().toFile());
         FileUtils.deleteDirectory(SECOND_GLOBAL_DIRECTORY_PATH.toAbsolutePath().toFile());
@@ -137,7 +134,6 @@ public class GlobalDirectoryTestCase extends GlobalDirectoryBase {
     public void testSmoke() throws IOException, InterruptedException {
         registerGlobalDirectory(GLOBAL_DIRECTORY_NAME, GLOBAL_DIRECTORY_PATH.toString(), true);
         verifyProperlyRegistered(GLOBAL_DIRECTORY_NAME, GLOBAL_DIRECTORY_PATH.toString());
-        restartServer();
     }
 
     /**
@@ -147,7 +143,7 @@ public class GlobalDirectoryTestCase extends GlobalDirectoryBase {
     public void testSmokeOnlyOne() throws IOException, InterruptedException {
         registerGlobalDirectory(GLOBAL_DIRECTORY_NAME, GLOBAL_DIRECTORY_PATH.toString(), true);
         verifyProperlyRegistered(GLOBAL_DIRECTORY_NAME, GLOBAL_DIRECTORY_PATH.toString());
-        restartServer();
+        reloadServer();
 
         final ModelNode response = registerGlobalDirectory(SECOND_GLOBAL_DIRECTORY_NAME, SECOND_GLOBAL_DIRECTORY_PATH.toString(), false);
         ModelNode outcome = response.get(OUTCOME);
@@ -164,7 +160,7 @@ public class GlobalDirectoryTestCase extends GlobalDirectoryBase {
      * 1. Create libraries and copy them to global directory
      * 2. Define global-directory by CLI command
      * 3. Check if global-directory is registered properly and verify its attributes
-     * 4. Restart server
+     * 4. Reload server
      * 5. Deploy test application deployment
      * 6. Call some method from global-directory in deployment and verify method output
      */
@@ -178,7 +174,7 @@ public class GlobalDirectoryTestCase extends GlobalDirectoryBase {
 
         registerGlobalDirectory(GLOBAL_DIRECTORY_NAME);
         verifyProperlyRegistered(GLOBAL_DIRECTORY_NAME, GLOBAL_DIRECTORY_PATH.toString());
-        restartServer();
+        reloadServer();
 
         try {
             deployer.deploy(DEPLOYMENT);
@@ -196,7 +192,7 @@ public class GlobalDirectoryTestCase extends GlobalDirectoryBase {
      * 1. Create corrupted jar and copy it to global directory
      * 2. Define global-directory by CLI command
      * 3. Check if global-directory is registered properly and verify its attributes
-     * 4. Restart server
+     * 4. Reload server
      * 5. Deploy test application deployment and verify that Exception is thrown
      * 6. Check that server log contain information about corrupted jar
      */
@@ -206,7 +202,7 @@ public class GlobalDirectoryTestCase extends GlobalDirectoryBase {
         copyLibraryToGlobalDirectory("corrupted");
         registerGlobalDirectory(GLOBAL_DIRECTORY_NAME);
         verifyProperlyRegistered(GLOBAL_DIRECTORY_NAME, GLOBAL_DIRECTORY_PATH.toString());
-        restartServer();
+        reloadServer();
 
         try {
             deployer.deploy(DEPLOYMENT);
@@ -222,7 +218,7 @@ public class GlobalDirectoryTestCase extends GlobalDirectoryBase {
      * 1. Create multiple jars and copy them to global directory into various folders
      * 2. Define global-directory by CLI command
      * 3. Check if global-directory is registered properly and verify its attributes
-     * 4. Restart server
+     * 4. Reload server
      * 5. Set logging level to DEBUG
      * 6. Deploy test application deployment
      * 7. Call some method from global-directory in deployment
@@ -255,7 +251,7 @@ public class GlobalDirectoryTestCase extends GlobalDirectoryBase {
 
         registerGlobalDirectory(GLOBAL_DIRECTORY_NAME);
         verifyProperlyRegistered(GLOBAL_DIRECTORY_NAME, GLOBAL_DIRECTORY_PATH.toString());
-        restartServer();
+        reloadServer();
 
         initCLI(true);
         cli.sendLine("/subsystem=logging/logger=org.jboss.as.server.moduleservice:add(level=DEBUG)");
@@ -291,7 +287,7 @@ public class GlobalDirectoryTestCase extends GlobalDirectoryBase {
      * 1. Create text file and copy it to global directory
      * 2. Define global-directory by CLI command
      * 3. Check if global-directory are registered properly and verify its attributes
-     * 4. Restart server
+     * 4. Reload server
      * 5. Deploy test application deployment
      * 6. Call some method (such that its result depend on content of the property file) from global-directory in deployment
      * 7. Verify that result contains an expected output
@@ -312,7 +308,7 @@ public class GlobalDirectoryTestCase extends GlobalDirectoryBase {
 
         registerGlobalDirectory(GLOBAL_DIRECTORY_NAME);
         verifyProperlyRegistered(GLOBAL_DIRECTORY_NAME, GLOBAL_DIRECTORY_PATH.toString());
-        restartServer();
+        reloadServer();
 
         try {
             deployer.deploy(DEPLOYMENT2);

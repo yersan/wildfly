@@ -62,9 +62,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.jboss.as.controller.PathAddress;
+import org.jboss.as.controller.operations.common.Util;
+import org.jboss.as.test.integration.domain.management.util.DomainLifecycleUtil;
 import org.jboss.as.test.integration.domain.management.util.DomainTestSupport;
 import org.jboss.as.test.shared.TestSuiteEnvironment;
 import org.jboss.dmr.ModelNode;
@@ -231,7 +233,7 @@ public class GlobalDirectoryDomainTestCase {
      * Test for basic functionality of global directory.
      * 1. Copy jars to global directory
      * 2. Define global-directory by CLI command
-     * 3. Restart domain
+     * 3. Reload the server Groups
      * 4. Check if global-directory is registered properly
      * 5. Deploy test application deployment
      * 6. Call some method from global-directory in deployment and verify method output
@@ -246,12 +248,8 @@ public class GlobalDirectoryDomainTestCase {
         registerGlobalDirectory(GLOBAL_DIRECTORY_NAME, "default");
         registerGlobalDirectory(GLOBAL_DIRECTORY_NAME, "other");
 
-        testSupport.getDomainMasterLifecycleUtil().getDomainClient().restartServer("master", "main-one", 1, TimeUnit.MINUTES);
-        testSupport.getDomainSlaveLifecycleUtil().getDomainClient().restartServer("slave", "other-two", 1, TimeUnit.MINUTES);
-        testSupport.getDomainSlaveLifecycleUtil().getDomainClient().restartServer("slave", "main-three", 1, TimeUnit.MINUTES);
-
-        testSupport.getDomainMasterLifecycleUtil().awaitServers(System.currentTimeMillis());
-        testSupport.getDomainSlaveLifecycleUtil().awaitServers(System.currentTimeMillis());
+        reloadServerGroup(testSupport.getDomainMasterLifecycleUtil(), PathAddress.pathAddress(MAIN_SERVER_GROUP_ADDRESS));
+        reloadServerGroup(testSupport.getDomainMasterLifecycleUtil(), PathAddress.pathAddress(OTHER_SERVER_GROUP_ADDRESS));
 
         verifyProperlyRegistered(GLOBAL_DIRECTORY_NAME, GLOBAL_DIRECTORY_PATH.toString(), "default");
         verifyProperlyRegistered(GLOBAL_DIRECTORY_NAME, GLOBAL_DIRECTORY_PATH.toString(), "other");
@@ -274,15 +272,8 @@ public class GlobalDirectoryDomainTestCase {
         verifyDoesNotExist(GLOBAL_DIRECTORY_NAME, "default");
         verifyDoesNotExist(GLOBAL_DIRECTORY_NAME, "other");
 
-        // Windows won't allow to delete jars in global directory if they are still loaded by wildfly
-        if (TestSuiteEnvironment.isWindows()) {
-            testSupport.getDomainMasterLifecycleUtil().getDomainClient().restartServer("master", "main-one", 1, TimeUnit.MINUTES);
-            testSupport.getDomainSlaveLifecycleUtil().getDomainClient().restartServer("slave", "other-two", 1, TimeUnit.MINUTES);
-            testSupport.getDomainSlaveLifecycleUtil().getDomainClient().restartServer("slave", "main-three", 1, TimeUnit.MINUTES);
-
-            testSupport.getDomainMasterLifecycleUtil().awaitServers(System.currentTimeMillis());
-            testSupport.getDomainSlaveLifecycleUtil().awaitServers(System.currentTimeMillis());
-        }
+        reloadServerGroup(testSupport.getDomainMasterLifecycleUtil(), PathAddress.pathAddress(MAIN_SERVER_GROUP_ADDRESS));
+        reloadServerGroup(testSupport.getDomainMasterLifecycleUtil(), PathAddress.pathAddress(OTHER_SERVER_GROUP_ADDRESS));
     }
 
     private void copyLibraryToGlobalDirectory(String name) throws IOException {
@@ -472,4 +463,9 @@ public class GlobalDirectoryDomainTestCase {
         }
     }
 
+    private void reloadServerGroup(DomainLifecycleUtil domainMasterLifecycleUtil, PathAddress address) {
+        ModelNode reload = Util.createEmptyOperation("reload-servers", address);
+        reload.get("blocking").set("true");
+        domainMasterLifecycleUtil.executeForResult(reload);
+    }
 }

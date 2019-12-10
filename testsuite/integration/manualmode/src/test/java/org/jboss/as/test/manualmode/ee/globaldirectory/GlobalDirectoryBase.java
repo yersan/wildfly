@@ -56,6 +56,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.as.test.integration.management.base.AbstractCliTestBase;
+import org.jboss.as.test.shared.ServerReload;
 import org.jboss.as.test.shared.TestSuiteEnvironment;
 import org.jboss.dmr.ModelNode;
 import org.jboss.logging.Logger;
@@ -80,10 +81,9 @@ public class GlobalDirectoryBase extends AbstractCliTestBase {
     protected static final Path SECOND_GLOBAL_DIRECTORY_PATH = Paths.get(TestSuiteEnvironment.getTmpDir(),"global-directory-2");
     protected static final String SECOND_GLOBAL_DIRECTORY_NAME = "global-directory-2";
 
-    protected static final String DUPLICATE_ERROR_GLOBAL_DIRECTORY_CODE = "WFLYEE0121";
+    protected static final String DUPLICATE_ERROR_GLOBAL_DIRECTORY_CODE = "WFLYEE0123";
 
     protected static final File TEMP_DIR = new File(TestSuiteEnvironment.getTmpDir(), "jars");
-    protected static final int MAX_RECONNECTS_TRAY = 5;
 
     protected static final String CONTAINER = "default-jbossas";
     protected static final String DEPLOYMENT = "deployment";
@@ -191,49 +191,8 @@ public class GlobalDirectoryBase extends AbstractCliTestBase {
         clientHolder = null;
     }
 
-    protected void restartServer() throws InterruptedException {
-        containerController.stop(CONTAINER);
-        containerController.start(CONTAINER);
-        boolean connectionOnline = false;
-        Exception lastEx = null;
-        for (int iTry = 0; iTry < MAX_RECONNECTS_TRAY; iTry++) {
-            try {
-                checkConnectionLive();
-                connectionOnline = true;
-                break;
-            } catch (Exception ex) {
-                LOGGER.trace("Failed to reconnect cli! (try-" + iTry + ")", ex);
-                Thread.sleep(10000);
-                disconnect();
-                connect();
-                lastEx = ex;
-            }
-        }
-        if (!connectionOnline) {
-            throw new RuntimeException("Couldn't reconnect cli to the server!", lastEx);
-        }
-    }
-
-    /**
-     * It is used as easy request to check if cli is online
-     *
-     * @throws NullPointerException When the response from the server is null
-     */
-    private void checkConnectionLive() throws IOException, NullPointerException {
-        // /subsystem=logging/log-file=*:read-resource
-        final ModelNode address = new ModelNode();
-        address.add(SUBSYSTEM, "logging")
-                .add("log-file", "*")
-                .protect();
-        final ModelNode operation = new ModelNode();
-        operation.get(OP).set(READ_RESOURCE_OPERATION);
-        operation.get(INCLUDE_RUNTIME).set(true);
-        operation.get(OP_ADDR).set(address);
-
-        final ModelNode response = clientHolder.execute(operation);
-        if (response == null) {
-            throw new NullPointerException("Response from cli can't be null!");
-        }
+    protected void reloadServer() {
+        ServerReload.executeReloadAndWaitForCompletion(clientHolder.mgmtClient);
     }
 
     /**

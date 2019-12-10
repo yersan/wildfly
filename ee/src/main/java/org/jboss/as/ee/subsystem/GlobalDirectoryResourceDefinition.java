@@ -38,12 +38,12 @@ import org.jboss.as.controller.OperationFailedException;
 import org.jboss.as.controller.OperationStepHandler;
 import org.jboss.as.controller.PathElement;
 import org.jboss.as.controller.PersistentResourceDefinition;
+import org.jboss.as.controller.ReloadRequiredRemoveStepHandler;
 import org.jboss.as.controller.ReloadRequiredWriteAttributeHandler;
 import org.jboss.as.controller.SimpleAttributeDefinition;
 import org.jboss.as.controller.SimpleResourceDefinition;
 import org.jboss.as.controller.descriptions.ModelDescriptionConstants;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
-import org.jboss.as.controller.registry.OperationEntry;
 import org.jboss.as.controller.registry.Resource;
 import org.jboss.as.controller.services.path.PathManager;
 import org.jboss.as.ee.logging.EeLogger;
@@ -62,25 +62,23 @@ public class GlobalDirectoryResourceDefinition extends PersistentResourceDefinit
     static SimpleAttributeDefinition PATH = create(ModelDescriptionConstants.PATH, ModelType.STRING, false)
             .setAllowExpression(true)
             .addArbitraryDescriptor(FILESYSTEM_PATH, new ModelNode(true))
-            .setRestartJVM()
+            .setRestartAllServices()
             .build();
 
     static SimpleAttributeDefinition RELATIVE_TO = create(ModelDescriptionConstants.RELATIVE_TO, ModelType.STRING, true)
             .setAllowExpression(false)
-            .setRestartJVM()
+            .setRestartAllServices()
             .build();
 
     static final SimpleAttributeDefinition[] ATTRIBUTES = new SimpleAttributeDefinition[]{PATH, RELATIVE_TO};
 
     private static final AbstractAddStepHandler ADD = new GlobalDirectoryAddHandler();
-    private static final AbstractRemoveStepHandler REMOVE = new GlobalDirectoryRemoveHandler();
+    private static final AbstractRemoveStepHandler REMOVE = new ReloadRequiredRemoveStepHandler();
 
     public static final GlobalDirectoryResourceDefinition INSTANCE = new GlobalDirectoryResourceDefinition();
 
     public GlobalDirectoryResourceDefinition() {
         super(new SimpleResourceDefinition.Parameters(PathElement.pathElement(EESubsystemModel.GLOBAL_DIRECTORY), EeExtension.getResourceDescriptionResolver(EESubsystemModel.GLOBAL_DIRECTORY))
-                .setAddRestartLevel(OperationEntry.Flag.RESTART_JVM)
-                .setRemoveRestartLevel(OperationEntry.Flag.RESTART_JVM)
                 .setAddHandler(GlobalDirectoryResourceDefinition.ADD)
                 .setRemoveHandler(GlobalDirectoryResourceDefinition.REMOVE)
                 .setCapabilities(EE_GLOBAL_DIRECTORY_CAPABILITY)
@@ -103,7 +101,7 @@ public class GlobalDirectoryResourceDefinition extends PersistentResourceDefinit
         protected void populateModel(final OperationContext context, final ModelNode operation, final Resource resource)
                 throws OperationFailedException {
             super.populateModel(context, operation, resource);
-            context.addStep(new OperationStepHandler(){
+            context.addStep(new OperationStepHandler() {
                 public void execute(OperationContext oc, ModelNode op) throws OperationFailedException {
                     Resource parentResource = context.readResourceFromRoot(context.getCurrentAddress().getParent(), false);
                     Set<String> globalDirectories = parentResource.getChildrenNames(EESubsystemModel.GLOBAL_DIRECTORY);
@@ -140,14 +138,6 @@ public class GlobalDirectoryResourceDefinition extends PersistentResourceDefinit
         ReloadRequiredWriteAttributeHandler handler = new ReloadRequiredWriteAttributeHandler(ATTRIBUTES);
         for (AttributeDefinition attribute : ATTRIBUTES) {
             resourceRegistration.registerReadWriteAttribute(attribute, null, handler);
-        }
-    }
-
-    private static class GlobalDirectoryRemoveHandler extends AbstractRemoveStepHandler {
-
-        @Override
-        protected void performRuntime(OperationContext context, ModelNode operation, ModelNode model) throws OperationFailedException {
-            context.restartRequired();
         }
     }
 

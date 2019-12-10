@@ -73,9 +73,10 @@ public class GlobalDirectoryDependencyProcessor implements DeploymentUnitProcess
         final ServiceBuilder<?> allDirReadyServiceBuilder = target.addService(allDirReadyServiceName);
         final List<Supplier<GlobalDirectoryResourceDefinition.GlobalDirectory>> allDirReadySuppliers = new ArrayList<>();
 
+        final ServiceName csName = capabilitySupport.getCapabilityServiceName(EE_GLOBAL_DIRECTORY_CAPABILITY_NAME);
         List<ServiceName> serviceNames = serviceRegistry.getServiceNames();
         for (ServiceName serviceName : serviceNames) {
-            if (capabilitySupport.getCapabilityServiceName(EE_GLOBAL_DIRECTORY_CAPABILITY_NAME).isParentOf(serviceName)) {
+            if (csName.isParentOf(serviceName)) {
                 Supplier<GlobalDirectoryResourceDefinition.GlobalDirectory> pathRequirement = allDirReadyServiceBuilder.requires(serviceName);
                 allDirReadySuppliers.add(pathRequirement);
             }
