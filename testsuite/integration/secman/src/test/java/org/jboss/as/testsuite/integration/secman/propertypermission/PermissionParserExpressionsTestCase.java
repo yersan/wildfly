@@ -26,9 +26,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Permission;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 
 import javax.xml.stream.XMLInputFactory;
 
@@ -68,11 +70,8 @@ public class PermissionParserExpressionsTestCase {
         System.setProperty("NAME_C", "C");
         System.setProperty("ACTION_READ", "read");
 
-        Path modulePath = Paths.get(System.getProperty("module.path"));
-        if (modulePath == null) {
-            fail("module.path system property is not set");
-        }
-        LocalModuleLoader ml = new LocalModuleLoader(new File[]{modulePath.normalize().toFile()});
+        File[] modulePaths = getModulePaths();
+        LocalModuleLoader ml = new LocalModuleLoader(modulePaths);
 
         List<PermissionFactory> permissionFactories = parsePermissions(fileUnderTest, ml, identifier, functionExpand);
         Assert.assertEquals("Unexpected number of permissions", 3, permissionFactories.size());
@@ -117,5 +116,19 @@ public class PermissionParserExpressionsTestCase {
             } catch (IOException e) {
             }
         }
+    }
+
+    private File[] getModulePaths() {
+        final List<File> files = new ArrayList<>();
+        String modulePath = System.getProperty("module.path");
+        if (modulePath == null) {
+            fail("module.path system property is not set");
+        }
+        final String[] modulePaths = modulePath.split(Pattern.quote(File.pathSeparator));
+        for (String path: modulePaths) {
+            files.add(Paths.get(path).normalize().toFile());
+        }
+
+        return files.toArray(new File[]{});
     }
 }
