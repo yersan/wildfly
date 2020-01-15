@@ -33,11 +33,11 @@ public class GlobalDirectoryLibraryImpl2 implements GlobalDirectoryLibrary {
 
     public String get() {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream is = classloader.getResourceAsStream("properties.txt");
-        BufferedReader in = new BufferedReader(new InputStreamReader(is));
         String res = null;
-        try {
-            res = in.readLine();
+        try (InputStream is = classloader.getResourceAsStream("properties.txt")) {
+            try(BufferedReader in = new BufferedReader(new InputStreamReader(is))) {
+                res = in.readLine();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

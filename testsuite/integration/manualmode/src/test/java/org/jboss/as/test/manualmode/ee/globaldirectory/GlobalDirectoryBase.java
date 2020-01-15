@@ -326,7 +326,7 @@ public class GlobalDirectoryBase extends AbstractCliTestBase {
 
         protected static ClientHolder init() {
             final ModelControllerClient clientHolder = TestSuiteEnvironment.getModelControllerClient();
-            ManagementClient mgmtClient = new ManagementClient(clientHolder, TestSuiteEnvironment.getServerAddress(),
+            ManagementClient mgmtClient = new ManagementClient(clientHolder, TestSuiteEnvironment.formatPossibleIpv6Address(TestSuiteEnvironment.getServerAddress()),
                     TestSuiteEnvironment.getServerPort(), "http-remoting");
             return new ClientHolder(mgmtClient);
         }
