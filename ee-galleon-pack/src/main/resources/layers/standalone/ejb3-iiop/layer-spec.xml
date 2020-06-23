@@ -2,7 +2,8 @@
 <layer-spec xmlns="urn:jboss:galleon:layer-spec:1.0" name="ejb3-iiop">
     <!-- Aggregates all EJB3 functionality, including ejb-iiop. -->
     <dependencies>
-        <layer name="ejb3-lite"/>
+        <layer name="ejb3-lite" optional="true"/>
+        <layer name="ejb3-stateless"/>
         <layer name="iiop-openjdk"/>
     </dependencies>
     <feature spec="subsystem.ejb3.service.iiop">
