@@ -22,6 +22,7 @@
 
 package org.jboss.as.test.integration.domain.mixed.eap700;
 
+import static org.jboss.as.controller.client.helpers.ClientConstants.VALUE;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.EXTENSION;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SUBSYSTEM;
 import static org.jboss.as.controller.operations.common.Util.createRemoveOperation;
@@ -32,6 +33,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.jboss.as.controller.PathAddress;
+import org.jboss.as.controller.client.helpers.Operations;
 import org.jboss.as.controller.client.helpers.domain.DomainClient;
 import org.jboss.as.test.integration.domain.mixed.eap710.DomainAdjuster710;
 import org.jboss.dmr.ModelNode;
@@ -42,6 +44,7 @@ import org.jboss.dmr.ModelNode;
  * @author <a href="mailto:kabir.khan@jboss.com">Kabir Khan</a>
  */
 public class DomainAdjuster700 extends DomainAdjuster710 {
+    private static final ModelNode AIO_DISABLED_ADDRESS = Operations.createAddress("system-property", "org.apache.activemq.artemis.core.io.aio.AIOSequentialFileFactory.DISABLED");
 
     @Override
     protected List<ModelNode> adjustForVersion(final DomainClient client, PathAddress profileAddress, boolean withMasterServers) throws Exception {
@@ -50,6 +53,12 @@ public class DomainAdjuster700 extends DomainAdjuster710 {
         list.addAll(removeCoreManagement(profileAddress.append(SUBSYSTEM, "core-management")));
         list.addAll(removeElytron(profileAddress.append(SUBSYSTEM, "elytron")));
         list.addAll(adjustWS(profileAddress.append(SUBSYSTEM, "webservices")));
+
+        System.out.println(" ............................");
+        ModelNode op = Operations.createAddOperation(AIO_DISABLED_ADDRESS);
+        op.get(VALUE).set(true);
+        client.execute(op);
+
         return list;
     }
 
