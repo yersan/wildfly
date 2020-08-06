@@ -2,10 +2,8 @@
 <layer-spec xmlns="urn:jboss:galleon:layer-spec:1.0" name="web-console">
     <dependencies>
         <layer name="secure-management"/>
-        <layer name="core-management"/>
     </dependencies>
     <packages>
         <package name="org.jboss.as.console"/>
-        <package name="org.jboss.as.patching"/>
     </packages>
 </layer-spec>
