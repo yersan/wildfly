@@ -21,13 +21,18 @@
  */
 package org.jboss.as.jdr.commands;
 
+import java.util.logging.Logger;
+
 import org.jboss.as.jdr.util.FSTree;
 
 public class TreeCommand extends JdrCommand {
+    Logger log = Logger.getAnonymousLogger();
 
     @Override
     public void execute() throws Exception {
         FSTree tree = new FSTree(this.env.getJbossHome());
+        log.info("1. --------------> " + this.env.getJbossHome());
+        log.info("2. --------------> " + tree.toString());
         this.env.getZip().add(tree.toString(), "tree.txt");
     }
 }

@@ -123,13 +123,15 @@ public class JdrRunner implements JdrReportCollector {
         StringBuilder skips = new StringBuilder();
         report.setStartTime();
         report.setJdrUuid(obtainServerUUID());
+        ROOT_LOGGER.info(" commands: ---------> " + commands);
         for (JdrCommand command : commands) {
             command.setEnvironment(new JdrEnvironment(this.env));
             try {
+                ROOT_LOGGER.info(" EXECUTING ---------> " + command);
                 command.execute();
             } catch (Throwable t) {
                 String message = "Skipping command " + command.toString();
-                ROOT_LOGGER.debugf(message);
+                ROOT_LOGGER.info(message);
                 skips.append(message);
                 PrintWriter pw = new PrintWriter(new StringWriter());
                 t.printStackTrace(pw);
