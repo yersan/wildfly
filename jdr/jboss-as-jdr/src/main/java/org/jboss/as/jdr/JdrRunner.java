@@ -138,7 +138,7 @@ public class JdrRunner implements JdrReportCollector {
                 skips.append(pw.toString());
                 pw.close();
 
-                ROOT_LOGGER.info("SkipLogs result " + skips.toString());
+                ROOT_LOGGER.info("SkipLogs result ---------> " + skips.toString());
             }
         }
 
