@@ -127,7 +127,7 @@ public class JdrRunner implements JdrReportCollector {
         for (JdrCommand command : commands) {
             command.setEnvironment(new JdrEnvironment(this.env));
             try {
-                ROOT_LOGGER.info(" EXECUTING ---------> " + command);
+                ROOT_LOGGER.info(" EXECUTING ---------> " + command.toString());
                 command.execute();
             } catch (Throwable t) {
                 String message = "Skipping command " + command.toString();
@@ -137,6 +137,8 @@ public class JdrRunner implements JdrReportCollector {
                 t.printStackTrace(pw);
                 skips.append(pw.toString());
                 pw.close();
+
+                ROOT_LOGGER.info("SkipLogs result " + skips.toString());
             }
         }
 
