@@ -2783,8 +2783,10 @@
                                                 <layer>ee</layer>
                                                 <layer>ee-security</layer>
                                                 <layer>ejb</layer>
+                                                <layer>ejb-local-cache</layer>
                                                 <layer>ejb-lite</layer>
                                                 <layer>elytron</layer>
+                                                <layer>git-history</layer>
                                                 <layer>h2-datasource</layer>
                                                 <layer>h2-default-datasource</layer>
                                                 <layer>h2-driver</layer>
@@ -2792,34 +2794,36 @@
                                                 <layer>jaxrs</layer>
                                                 <layer>jaxrs-server</layer>
                                                 <layer>jdr</layer>
-                                                <layer>messaging-activemq</layer>
-                                                <layer>remote-activemq</layer>
                                                 <layer>jmx</layer>
                                                 <layer>jmx-remoting</layer>
                                                 <layer>jpa</layer>
                                                 <layer>jsf</layer>
-                                                <layer>jsonp</layer>
                                                 <layer>jsonb</layer>
+                                                <layer>jsonp</layer>
                                                 <layer>legacy-management</layer>
                                                 <layer>legacy-security</layer>
                                                 <layer>logging</layer>
                                                 <layer>mail</layer>
                                                 <layer>management</layer>
                                                 <layer>management-security-realm</layer>
+                                                <layer>messaging-activemq</layer>
                                                 <layer>microprofile-config</layer>
                                                 <layer>microprofile-fault-tolerance</layer>
                                                 <layer>microprofile-health</layer>
                                                 <layer>microprofile-jwt</layer>
                                                 <layer>microprofile-metrics</layer>
                                                 <layer>microprofile-openapi</layer>
+                                                <layer>microprofile-platform</layer>
                                                 <layer>naming</layer>
                                                 <layer>observability</layer>
                                                 <layer>open-tracing</layer>
-                                                <layer>remoting</layer>
                                                 <layer>pojo</layer>
+                                                <layer>remote-activemq</layer>
+                                                <layer>remoting</layer>
                                                 <layer>request-controller</layer>
                                                 <layer>resource-adapters</layer>
                                                 <layer>sar</layer>
+                                                <layer>secure-management</layer>
                                                 <layer>security-manager</layer>
                                                 <layer>transactions</layer>
                                                 <layer>undertow</layer>
@@ -2885,8 +2889,10 @@
                                                 <layer>ee</layer>
                                                 <layer>ee-security</layer>
                                                 <layer>ejb</layer>
+                                                <layer>ejb-local-cache</layer>
                                                 <layer>ejb-lite</layer>
                                                 <layer>elytron</layer>
+                                                <layer>git-history</layer>
                                                 <layer>h2-datasource</layer>
                                                 <layer>h2-default-datasource</layer>
                                                 <layer>h2-driver</layer>
@@ -2894,35 +2900,36 @@
                                                 <layer>jaxrs</layer>
                                                 <layer>jaxrs-server</layer>
                                                 <layer>jdr</layer>
-                                                <layer>messaging-activemq</layer>
-                                                <layer>remote-activemq</layer>
                                                 <layer>jmx</layer>
                                                 <layer>jmx-remoting</layer>
-                                                <layer>jpa-distributed</layer>
+                                                <layer>jpa</layer>
                                                 <layer>jsf</layer>
-                                                <layer>jsonp</layer>
                                                 <layer>jsonb</layer>
+                                                <layer>jsonp</layer>
                                                 <layer>legacy-management</layer>
                                                 <layer>legacy-security</layer>
                                                 <layer>logging</layer>
                                                 <layer>mail</layer>
                                                 <layer>management</layer>
                                                 <layer>management-security-realm</layer>
-                                                <layer>microprofile-platform</layer>
+                                                <layer>messaging-activemq</layer>
                                                 <layer>microprofile-config</layer>
                                                 <layer>microprofile-fault-tolerance</layer>
                                                 <layer>microprofile-health</layer>
                                                 <layer>microprofile-jwt</layer>
                                                 <layer>microprofile-metrics</layer>
                                                 <layer>microprofile-openapi</layer>
+                                                <layer>microprofile-platform</layer>
                                                 <layer>naming</layer>
                                                 <layer>observability</layer>
                                                 <layer>open-tracing</layer>
                                                 <layer>pojo</layer>
+                                                <layer>remote-activemq</layer>
                                                 <layer>remoting</layer>
                                                 <layer>request-controller</layer>
                                                 <layer>resource-adapters</layer>
                                                 <layer>sar</layer>
+                                                <layer>secure-management</layer>
                                                 <layer>security-manager</layer>
                                                 <layer>transactions</layer>
                                                 <layer>undertow</layer>
