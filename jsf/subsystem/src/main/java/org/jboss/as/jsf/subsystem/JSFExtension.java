@@ -67,7 +67,7 @@ public class JSFExtension implements Extension {
     /** {@inheritDoc} */
     @Override
     public void initialize(final ExtensionContext context) {
-        JSFLogger.ROOT_LOGGER.debug("Activating JSF(Mojarra) Extension");
+        JSFLogger.ROOT_LOGGER.debug("Activating Jakarta Server Faces (Mojarra) Extension");
         final SubsystemRegistration subsystem = context.registerSubsystem(SUBSYSTEM_NAME, CURRENT_MODEL_VERSION);
         subsystem.registerSubsystemModel(JSFResourceDefinition.INSTANCE);
         subsystem.registerXMLElementWriter(JSFSubsystemParser_1_1.INSTANCE);
