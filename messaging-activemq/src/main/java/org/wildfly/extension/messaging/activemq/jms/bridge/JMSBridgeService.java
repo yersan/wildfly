@@ -43,7 +43,7 @@ import org.wildfly.security.password.interfaces.ClearPassword;
 import org.wildfly.transaction.client.ContextTransactionManager;
 
 /**
- * Service responsible for JMS Bridges.
+ * Service responsible for Jakarta Messaging Bridges.
  *
  * @author Jeff Mesnil (c) 2012 Red Hat Inc.
  */
@@ -81,7 +81,7 @@ class JMSBridgeService implements Service<JMSBridge> {
 
                     context.complete();
                 } catch (Throwable e) {
-                    context.failed(MessagingLogger.ROOT_LOGGER.failedToCreate(e, "JMS Bridge"));
+                    context.failed(MessagingLogger.ROOT_LOGGER.failedToCreate(e, "Jakarta Messaging Bridge"));
                 }
             }
         };
@@ -111,7 +111,7 @@ class JMSBridgeService implements Service<JMSBridge> {
         } finally {
             WildFlySecurityManager.setCurrentContextClassLoaderPrivileged(oldTccl);
         }
-        MessagingLogger.ROOT_LOGGER.startedService("JMS Bridge", bridgeName);
+        MessagingLogger.ROOT_LOGGER.startedService("Jakarta Messaging Bridge", bridgeName);
     }
 
     @Override
@@ -121,11 +121,11 @@ class JMSBridgeService implements Service<JMSBridge> {
             public void run() {
                 try {
                     bridge.stop();
-                    MessagingLogger.ROOT_LOGGER.stoppedService("JMS Bridge", bridgeName);
+                    MessagingLogger.ROOT_LOGGER.stoppedService("Jakarta Messaging Bridge", bridgeName);
 
                     context.complete();
                 } catch(Exception e) {
-                    MessagingLogger.ROOT_LOGGER.failedToDestroy("JMS Bridge", bridgeName);
+                    MessagingLogger.ROOT_LOGGER.failedToDestroy("Jakarta Messaging Bridge", bridgeName);
                 }
             }
         };

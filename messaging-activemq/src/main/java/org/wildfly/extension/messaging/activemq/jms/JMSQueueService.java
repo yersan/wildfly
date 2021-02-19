@@ -83,7 +83,7 @@ public class JMSQueueService implements Service<Queue> {
                     JMSQueueService.this.queue = ActiveMQDestination.createQueue(JMS_QUEUE_PREFIX + queueName, queueName);
                     context.complete();
                 } catch (Throwable e) {
-                    context.failed(MessagingLogger.ROOT_LOGGER.failedToCreate(e, "JMS Queue"));
+                    context.failed(MessagingLogger.ROOT_LOGGER.failedToCreate(e, "Jakarta Messaging Queue"));
                 }
             }
         };

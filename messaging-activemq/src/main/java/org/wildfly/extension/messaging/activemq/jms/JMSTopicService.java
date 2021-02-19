@@ -75,7 +75,7 @@ public class JMSTopicService implements Service<Topic> {
                     topic = ActiveMQDestination.createTopic(JMS_TOPIC_PREFIX + name, name);
                     context.complete();
                 } catch (Throwable e) {
-                    context.failed(MessagingLogger.ROOT_LOGGER.failedToCreate(e, "JMS Topic"));
+                    context.failed(MessagingLogger.ROOT_LOGGER.failedToCreate(e, "Jakarta Messaging Topic"));
                 }
             }
         };
