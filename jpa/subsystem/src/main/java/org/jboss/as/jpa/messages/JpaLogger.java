@@ -305,14 +305,14 @@ public interface JpaLogger extends BasicLogger {
     //RuntimeException cannotLoadEntityClass(@Cause Throwable cause, String className);
 
     /**
-     * Creates an exception indicating the {@code injectionTypeName} could not be loaded from the JPA modules class
+     * Creates an exception indicating the {@code injectionTypeName} could not be loaded from the Jakarta Persistence modules class
      * loader.
      *
      * @param cause             the cause of the error.
      * @param injectionTypeName the name of the type.
      * @return a {@link RuntimeException} for the error.
      */
-    @Message(id = 25, value = "Couldn't load %s from JPA modules classloader")
+    @Message(id = 25, value = "Couldn't load %s from Jakarta Persistence modules classloader")
     RuntimeException cannotLoadFromJpa(@Cause Throwable cause, String injectionTypeName);
 
 //    /**
@@ -372,7 +372,7 @@ public interface JpaLogger extends BasicLogger {
     @Message(id = 30, value = "Found extended persistence context in SFSB invocation call stack but that cannot be used " +
             "because the transaction already has a transactional context associated with it.  " +
             "This can be avoided by changing application code, either eliminate the extended " +
-            "persistence context or the transactional context.  See JPA spec 2.0 section 7.6.3.1.  " +
+            "persistence context or the transactional context.  See Jakarta Persistence spec 2.0 section 7.6.3.1.  " +
             "Scoped persistence unit name=%s, persistence context already in transaction =%s, extended persistence context =%s.")
     EJBException cannotUseExtendedPersistenceTransaction(String puScopedName, EntityManager existingEntityManager, EntityManager self);
 
@@ -703,7 +703,7 @@ public interface JpaLogger extends BasicLogger {
             "but a component with a 'SynchronizationType.SYNCHRONIZED' is now being used.  " +
             "Change the calling component code to join the persistence context (EntityManager) to the transaction or "+
             "change the called component code to also use 'SynchronizationType.UNSYNCHRONIZED'.  "+
-            "See JPA spec 2.1 section 7.6.4.1.  " +
+            "See Jakarta Persistence spec 2.1 section 7.6.4.1.  " +
             "Scoped persistence unit name=%s.")
     IllegalStateException badSynchronizationTypeCombination(String puScopedName);
 
