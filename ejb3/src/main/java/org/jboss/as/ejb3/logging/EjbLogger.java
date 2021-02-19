@@ -324,10 +324,10 @@ public interface EjbLogger extends BasicLogger {
     void timerNotActive(Timer timer);
 
     /**
-     * Logs a warning message indicating could not read timer information for EJB component
+     * Logs a warning message indicating could not read timer information for Jakarta Enterprise Beans component
      */
     @LogMessage(level = WARN)
-    @Message(id = 26, value = "Could not read timer information for EJB component %s")
+    @Message(id = 26, value = "Could not read timer information for Jakarta Enterprise Beans component %s")
     void failToReadTimerInformation(String componentName);
 
 //    /**
@@ -369,7 +369,7 @@ public interface EjbLogger extends BasicLogger {
      * Logs an error message indicating Could not restore timers for specified id
      */
     @LogMessage(level = ERROR)
-    @Message(id = 32, value = "Could not create directory %s to persist EJB timers.")
+    @Message(id = 32, value = "Could not create directory %s to persist Jakarta Enterprise Beans timers.")
     void failToCreateDirectoryForPersistTimers(File file);
 
 //    /**
@@ -383,22 +383,22 @@ public interface EjbLogger extends BasicLogger {
      * Logs an error message indicating that an invocation failed
      */
     @LogMessage(level = ERROR)
-    @Message(id = 34, value = "EJB Invocation failed on component %s for method %s")
+    @Message(id = 34, value = "Jakarta Enterprise Beans Invocation failed on component %s for method %s")
     void invocationFailed(String component, Method method, @Cause Throwable t);
 
     /**
-     * Logs an error message indicating that an ejb client proxy could not be swapped out in a RMI invocation
+     * Logs an error message indicating that an Jakarta Enterprise Beans client proxy could not be swapped out in a RMI invocation
      */
     @LogMessage(level = WARN)
-    @Message(id = 35, value = "Could not find EJB for locator %s, EJB client proxy will not be replaced")
+    @Message(id = 35, value = "Could not find Jakarta Enterprise Bean for locator %s, Jakarta Enterprise Bean client proxy will not be replaced")
     void couldNotFindEjbForLocatorIIOP(EJBLocator<?> locator);
 
 
     /**
-     * Logs an error message indicating that an ejb client proxy could not be swapped out in a RMI invocation
+     * Logs an error message indicating that an Jakarta Enterprise Bean client proxy could not be swapped out in a RMI invocation
      */
     @LogMessage(level = WARN)
-    @Message(id = 36, value = "EJB %s is not being replaced with a Stub as it is not exposed over IIOP")
+    @Message(id = 36, value = "Jakarta Enterprise Bean %s is not being replaced with a Stub as it is not exposed over IIOP")
     void ejbNotExposedOverIIOP(EJBLocator<?> locator);
 
     /**
@@ -516,7 +516,7 @@ public interface EjbLogger extends BasicLogger {
     @Message(id = 50, value = "Failed to parse property %s due to %s")
     void failedToCreateOptionForProperty(String propertyName, String reason);
 
-    @Message(id = 51, value = "Could not find view %s for EJB %s")
+    @Message(id = 51, value = "Could not find view %s for Jakarta Enterprise Bean %s")
     IllegalStateException viewNotFound(String viewClass, String ejbName);
 
     @Message(id = 52, value = "Cannot perform asynchronous local invocation for component that is not a session bean")
@@ -525,13 +525,13 @@ public interface EjbLogger extends BasicLogger {
     @Message(id = 53, value = "%s is not a Stateful Session bean in app: %s module: %s distinct-name: %s")
     IllegalArgumentException notStatefulSessionBean(String ejbName, String appName, String moduleName, String distinctName);
 
-    @Message(id = 54, value = "Failed to marshal EJB parameters")
+    @Message(id = 54, value = "Failed to marshal Jakarta Enterprise Beans parameters")
     RuntimeException failedToMarshalEjbParameters(@Cause Exception e);
 
-    @Message(id = 55, value = "No matching deployment for EJB: %s")
+    @Message(id = 55, value = "No matching deployment for Jakarta Enterprise Bean: %s")
     NoSuchEJBException unknownDeployment(EJBLocator<?> locator);
 
-    @Message(id = 56, value = "Could not find EJB in matching deployment: %s")
+    @Message(id = 56, value = "Could not find Jakarta Enterprise Bean in matching deployment: %s")
     NoSuchEJBException ejbNotFoundInDeployment(EJBLocator<?> locator);
 
     @Message(id = 57, value = "%s annotation is only valid on method targets")
@@ -552,7 +552,7 @@ public interface EjbLogger extends BasicLogger {
     @Message(id = 62, value = "Transaction is required for invocation %s")
     EJBTransactionRequiredException txRequiredForInvocation(InterceptorContext invocation);
 
-    @Message(id = 63, value = "Transaction present on server in Never call (EJB3 13.6.2.6)")
+    @Message(id = 63, value = "Transaction present on server in Never call (Jakarta Enterprise Beans 3 13.6.2.6)")
     EJBException txPresentForNeverTxAttribute();
 
     @LogMessage(level = ERROR)
@@ -586,13 +586,13 @@ public interface EjbLogger extends BasicLogger {
     @Message(id = 73, value = "Illegal call to EJBHome.remove(Object) on a session bean")
     RemoveException illegalCallToEjbHomeRemove();
 
-    @Message(id = 74, value = "EJB 3.1 FR 13.6.2.8 setRollbackOnly is not allowed with SUPPORTS transaction attribute")
+    @Message(id = 74, value = "Jakarta Enterprise Beans 3.1 FR 13.6.2.8 setRollbackOnly is not allowed with SUPPORTS transaction attribute")
     IllegalStateException setRollbackOnlyNotAllowedForSupportsTxAttr();
 
     @Message(id = 75, value = "Cannot call getPrimaryKey on a session bean")
     EJBException cannotCallGetPKOnSessionBean();
 
-    @Message(id = 76, value = "Singleton beans cannot have EJB 2.x views")
+    @Message(id = 76, value = "Singleton beans cannot have Jakarta Enterprise Beans 2.x views")
     RuntimeException ejb2xViewNotApplicableForSingletonBeans();
 
 //    @Message(id = 77, value = "ClassTable %s cannot find a class for class index %d")
@@ -601,10 +601,10 @@ public interface EjbLogger extends BasicLogger {
     @Message(id = 78, value = "Bean %s does not have an EJBLocalObject")
     IllegalStateException ejbLocalObjectUnavailable(String beanName);
 
-    @Message(id = 79, value = "[EJB 3.1 spec, section 14.1.1] Class: %s cannot be marked as an application exception because it is not of type java.lang.Exception")
+    @Message(id = 79, value = "[Jakarta Enterprise Beans 3.1 spec, section 14.1.1] Class: %s cannot be marked as an application exception because it is not of type java.lang.Exception")
     IllegalArgumentException cannotBeApplicationExceptionBecauseNotAnExceptionType(Class<?> klass);
 
-    @Message(id = 80, value = "[EJB 3.1 spec, section 14.1.1] Exception class: %s cannot be marked as an application exception because it is of type java.rmi.RemoteException")
+    @Message(id = 80, value = "[Jakarta Enterprise Beans 3.1 spec, section 14.1.1] Exception class: %s cannot be marked as an application exception because it is of type java.rmi.RemoteException")
     IllegalArgumentException rmiRemoteExceptionCannotBeApplicationException(Class<?> klass);
 
     @Message(id = 81, value = "%s annotation is allowed only on classes. %s is not a class")
@@ -646,7 +646,7 @@ public interface EjbLogger extends BasicLogger {
     @Message(id = 93, value = "Module hasn't been attached to deployment unit %s")
     IllegalStateException moduleNotAttachedToDeploymentUnit(DeploymentUnit deploymentUnit);
 
-    @Message(id = 94, value = "EJB 3.1 FR 5.4.2 MessageDrivenBean %s does not implement 1 interface nor specifies message listener interface")
+    @Message(id = 94, value = "Jakarta Enterprise Beans 3.1 FR 5.4.2 MessageDrivenBean %s does not implement 1 interface nor specifies message listener interface")
     DeploymentUnitProcessingException mdbDoesNotImplementNorSpecifyMessageListener(ClassInfo beanClass);
 
     @Message(id = 95, value = "Unknown session bean type %s")
@@ -655,13 +655,13 @@ public interface EjbLogger extends BasicLogger {
     @Message(id = 96, value = "More than one method found with name %s on %s")
     DeploymentUnitProcessingException moreThanOneMethodWithSameNameOnComponent(String methodName, Class<?> componentClass);
 
-    @Message(id = 97, value = "Unknown EJB locator type %s")
+    @Message(id = 97, value = "Unknown Jakarta Enterprise Bean locator type %s")
     RuntimeException unknownEJBLocatorType(EJBLocator<?> locator);
 
     @Message(id = 98, value = "Could not create CORBA object for %s")
     RuntimeException couldNotCreateCorbaObject(@Cause Exception cause, EJBLocator<?> locator);
 
-    @Message(id = 99, value = "Provided locator %s was not for EJB %s")
+    @Message(id = 99, value = "Provided locator %s was not for Jakarta Enterprise Bean %s")
     IllegalArgumentException incorrectEJBLocatorForBean(EJBLocator<?> locator, String beanName);
 
     @Message(id = 100, value = "Failed to lookup java:comp/ORB")
@@ -679,7 +679,7 @@ public interface EjbLogger extends BasicLogger {
 //    @Message(id = 104, value = "Could not find marshaller factory for marshaller strategy %s")
 //    RuntimeException failedToFindMarshallerFactoryForStrategy(String marshallerStrategy);
 
-    @Message(id = 105, value = "%s is not an EJB component")
+    @Message(id = 105, value = "%s is not an Jakarta Enterprise Bean component")
     IllegalArgumentException notAnEJBComponent(Component component);
 
     @Message(id = 106, value = "Could not load method param class %s of timeout method")
@@ -698,7 +698,7 @@ public interface EjbLogger extends BasicLogger {
     TimerTransactionRolledBackException timerInvocationRolledBack();
 
     @LogMessage(level = INFO)
-    @Message(id = 111, value = "No jndi bindings will be created for EJB %s since no views are exposed")
+    @Message(id = 111, value = "No jndi bindings will be created for Jakarta Enterprise Bean %s since no views are exposed")
     void noJNDIBindingsForSessionBean(String beanName);
 
 //    @LogMessage(level = WARN)
@@ -730,19 +730,19 @@ public interface EjbLogger extends BasicLogger {
 //    void failedToSendClusterNodeRemovalMessageToClient(@Cause Exception e, Channel channel);
 
     @LogMessage(level = WARN)
-    @Message(id = 118, value = "[EJB3.1 spec, section 4.9.2] Session bean implementation class MUST NOT be a interface - %s is an interface, hence won't be considered as a session bean")
+    @Message(id = 118, value = "[Jakarta Enterprise Beans 3.1 spec, section 4.9.2] Session bean implementation class MUST NOT be a interface - %s is an interface, hence won't be considered as a session bean")
     void sessionBeanClassCannotBeAnInterface(String className);
 
     @LogMessage(level = WARN)
-    @Message(id = 119, value = "[EJB3.1 spec, section 4.9.2] Session bean implementation class MUST be public, not abstract and not final - %s won't be considered as a session bean, since it doesn't meet that requirement")
+    @Message(id = 119, value = "[Jakarta Enterprise Beans 3.1 spec, section 4.9.2] Session bean implementation class MUST be public, not abstract and not final - %s won't be considered as a session bean, since it doesn't meet that requirement")
     void sessionBeanClassMustBePublicNonAbstractNonFinal(String className);
 
     @LogMessage(level = WARN)
-    @Message(id = 120, value = "[EJB3.1 spec, section 5.6.2] Message driven bean implementation class MUST NOT be a interface - %s is an interface, hence won't be considered as a message driven bean")
+    @Message(id = 120, value = "[Jakarta Enterprise Beans 3.1 spec, section 5.6.2] Message driven bean implementation class MUST NOT be a interface - %s is an interface, hence won't be considered as a message driven bean")
     void mdbClassCannotBeAnInterface(String className);
 
     @LogMessage(level = WARN)
-    @Message(id = 121, value = "[EJB3.1 spec, section 5.6.2] Message driven bean implementation class MUST be public, not abstract and not final - %s won't be considered as a message driven bean, since it doesn't meet that requirement")
+    @Message(id = 121, value = "[Jakarta Enterprise Beans 3.1 spec, section 5.6.2] Message driven bean implementation class MUST be public, not abstract and not final - %s won't be considered as a message driven bean, since it doesn't meet that requirement")
     void mdbClassMustBePublicNonAbstractNonFinal(String className);
 
 //    @LogMessage(level = WARN)
@@ -763,26 +763,26 @@ public interface EjbLogger extends BasicLogger {
 //    @Message(id = 126, value = "Could not lookup service %s")
 //    IllegalStateException serviceNotFound(ServiceName serviceName);
 
-    @Message(id = 127, value = "EJB %s of type %s must have public default constructor")
+    @Message(id = 127, value = "Jakarta Enterprise Bean %s of type %s must have public default constructor")
     DeploymentUnitProcessingException ejbMustHavePublicDefaultConstructor(String componentName, String componentClassName);
 
-    @Message(id = 128, value = "EJB %s of type %s must not be inner class")
+    @Message(id = 128, value = "Jakarta Enterprise Bean %s of type %s must not be inner class")
     DeploymentUnitProcessingException ejbMustNotBeInnerClass(String componentName, String componentClassName);
 
-    @Message(id = 129, value = "EJB %s of type %s must be declared public")
+    @Message(id = 129, value = "Jakarta Enterprise Bean %s of type %s must be declared public")
     DeploymentUnitProcessingException ejbMustBePublicClass(String componentName, String componentClassName);
 
-    @Message(id = 130, value = "EJB %s of type %s must not be declared final")
+    @Message(id = 130, value = "Jakarta Enterprise Bean %s of type %s must not be declared final")
     DeploymentUnitProcessingException ejbMustNotBeFinalClass(String componentName, String componentClassName);
 
     @LogMessage(level = WARN)
-    @Message(id = 131, value = "EJB %s should not have a final or static method (%s)")
+    @Message(id = 131, value = "Jakarta Enterprise Bean %s should not have a final or static method (%s)")
     void ejbMethodMustNotBeFinalNorStatic(String ejbName, String methodName);
 
 //    @Message(id = 131, value = "EJB client context selector failed due to unavailability of %s service")
 //    IllegalStateException ejbClientContextSelectorUnableToFunctionDueToMissingService(ServiceName serviceName);
 
-    @Message(id = 132, value = "@PostConstruct method of EJB singleton %s of type %s has been recursively invoked")
+    @Message(id = 132, value = "@PostConstruct method of Jakarta Enterprise Bean singleton %s of type %s has been recursively invoked")
     IllegalStateException reentrantSingletonCreation(String componentName, String componentClassName);
 
 //    @Message(id = 133, value = "Failed to read EJB info")
@@ -806,7 +806,7 @@ public interface EjbLogger extends BasicLogger {
     @Message(id = 139, value = "The timer service has been disabled. Please add a <timer-service> entry into the ejb section of the server configuration to enable it.")
     String timerServiceIsNotActive();
 
-    @Message(id = 140, value = "This EJB does not have any timeout methods")
+    @Message(id = 140, value = "This Jakarta Enterprise Bean does not have any timeout methods")
     String ejbHasNoTimerMethods();
 
     @LogMessage(level = ERROR)
@@ -905,7 +905,7 @@ public interface EjbLogger extends BasicLogger {
     void couldNotCreateTable(@Cause SQLException e);
 
     @LogMessage(level = ERROR)
-    @Message(id = 164, value = "Exception running timer task for timer %s on EJB %s")
+    @Message(id = 164, value = "Exception running timer task for timer %s on Jakarta Enterprise Bean %s")
     void exceptionRunningTimerTask(Timer timer, String timedObjectId, @Cause  Exception e);
 
 //    @LogMessage(level = ERROR)
@@ -921,12 +921,12 @@ public interface EjbLogger extends BasicLogger {
     void deprecatedNamespace(String namespace, String element);
 
     /**
-     * Creates an exception indicating it could not find the EJB with specific id
+     * Creates an exception indicating it could not find the Jakarta Enterprise Bean with specific id
      *
      * @param sessionId Session id
      * @return a {@link NoSuchEJBException} for the error.
      */
-    @Message(id = 168, value = "Could not find EJB with id %s")
+    @Message(id = 168, value = "Could not find Jakarta Enterprise Bean with id %s")
     NoSuchEJBException couldNotFindEjb(String sessionId);
 
     /**
@@ -967,7 +967,7 @@ public interface EjbLogger extends BasicLogger {
      *
      * @return a {@link IllegalStateException} for the error.
      */
-    @Message(id = 173, value = "EJB 3.1 FR 13.6.1 Only beans with container-managed transaction demarcation " +
+    @Message(id = 173, value = "Jakarta Enterprise Bean 3.1 FR 13.6.1 Only beans with container-managed transaction demarcation " +
             "can use getRollbackOnly.")
     IllegalStateException failToCallgetRollbackOnly();
 
@@ -1048,7 +1048,7 @@ public interface EjbLogger extends BasicLogger {
      *
      * @return a {@link IllegalStateException} for the error.
      */
-    @Message(id = 182, value = "EJB 3.1 FR 13.6.1 Only beans with container-managed transaction demarcation " +
+    @Message(id = 182, value = "Jakarta Enterprise Bean 3.1 FR 13.6.1 Only beans with container-managed transaction demarcation " +
             "can use setRollbackOnly.")
     IllegalStateException failToCallSetRollbackOnlyOnNoneCMB();
 
@@ -1315,7 +1315,7 @@ public interface EjbLogger extends BasicLogger {
      *
      * @return a {@link IllegalStateException} for the error.
      */
-    @Message(id = 214, value = "EjbJarConfiguration hasn't been set in %s Cannot create component create service for EJB %S")
+    @Message(id = 214, value = "EjbJarConfiguration hasn't been set in %s Cannot create component create service for Jakarta Enterprise Bean %S")
     IllegalStateException ejbJarConfigNotBeenSet(ComponentCreateServiceFactory serviceFactory, String componentName);
 
 //    /**
@@ -1363,7 +1363,7 @@ public interface EjbLogger extends BasicLogger {
      *
      * @return a {@link IllegalStateException} for the error.
      */
-    @Message(id = 220, value = "[EJB 3.1 spec, section 4.9.7] - Can't add view class: %s as local view since it's already marked as remote view for bean: %s")
+    @Message(id = 220, value = "[Jakarta Enterprise Beans 3.1 spec, section 4.9.7] - Can't add view class: %s as local view since it's already marked as remote view for bean: %s")
     IllegalStateException failToAddClassToLocalView(String viewClassName, String ejbName);
 
     /**
@@ -1375,7 +1375,7 @@ public interface EjbLogger extends BasicLogger {
     IllegalStateException businessInterfaceIsNull();
 
     /**
-     * Creates an exception indicating Bean component does not have an ejb object
+     * Creates an exception indicating Bean component does not have an Jakarta Enterprise Bean object
      *
      * @return a {@link IllegalStateException} for the error.
      */
@@ -1383,7 +1383,7 @@ public interface EjbLogger extends BasicLogger {
     IllegalStateException beanComponentMissingEjbObject(String componentName, String ejbLocalObject);
 
     /**
-     * Creates an exception indicating EJB 3.1 FR 13.6.2.9 getRollbackOnly is not allowed with SUPPORTS attribute
+     * Creates an exception indicating Jakarta Enterprise Beans 3.1 FR 13.6.2.9 getRollbackOnly is not allowed with SUPPORTS attribute
      *
      * @return a {@link IllegalStateException} for the error.
      */
@@ -1391,11 +1391,11 @@ public interface EjbLogger extends BasicLogger {
     IllegalStateException getRollBackOnlyIsNotAllowWithSupportsAttribute();
 
     /**
-     * Creates an exception indicating not a business method. Do not call non-public methods on EJB's
+     * Creates an exception indicating not a business method. Do not call non-public methods on Jakarta Enterprise Bean's
      *
      * @return a {@link EJBException} for the error.
      */
-    @Message(id = 224, value = "Not a business method %s. Do not call non-public methods on EJB's")
+    @Message(id = 224, value = "Not a business method %s. Do not call non-public methods on Jakarta Enterprise Bean's")
     EJBException failToCallBusinessOnNonePublicMethod(Method method);
 
     /**
