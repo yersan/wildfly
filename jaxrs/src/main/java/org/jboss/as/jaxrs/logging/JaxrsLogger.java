@@ -180,7 +180,7 @@ public interface JaxrsLogger extends BasicLogger {
     void failedToReadAttribute(@Cause Exception ex, PathAddress address, ModelNode modelNode);
 
     @LogMessage(level = WARN)
-    @Message(id = 18, value = "Explicit usage of Jackson annotation in a Jakarta RESTful Web Services deployment; the system will disable JSON-B processing for the current deployment. Consider setting the '%s' property to 'false' to restore JSON-B.")
+    @Message(id = 18, value = "Explicit usage of Jackson annotation in a Jakarta RESTful Web Services deployment; the system will disable Jakarta JSON Binding processing for the current deployment. Consider setting the '%s' property to 'false' to restore Jakarta JSON Binding.")
     void jacksonAnnotationDetected(String property);
 
     @LogMessage(level = WARN)
