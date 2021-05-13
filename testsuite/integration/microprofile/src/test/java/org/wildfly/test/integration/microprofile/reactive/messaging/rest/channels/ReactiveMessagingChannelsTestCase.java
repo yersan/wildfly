@@ -40,9 +40,6 @@ import java.util.Map;
 import javax.management.MBeanPermission;
 import javax.management.MBeanServerPermission;
 
-import javax.management.MBeanPermission;
-import javax.management.MBeanServerPermission;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
