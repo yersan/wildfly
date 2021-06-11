@@ -377,7 +377,6 @@
         <dependency>
             <groupId>${ee.maven.groupId}</groupId>
             <artifactId>wildfly-servlet-feature-pack-common</artifactId>
-            <version>${ee.maven.version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -385,7 +384,6 @@
         <dependency>
             <groupId>${ee.maven.groupId}</groupId>
             <artifactId>wildfly-servlet-feature-pack-ee-8-api</artifactId>
-            <version>${ee.maven.version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -393,7 +391,6 @@
         <dependency>
             <groupId>${ee.maven.groupId}</groupId>
             <artifactId>wildfly-servlet-feature-pack-galleon-common</artifactId>
-            <version>${ee.maven.version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -401,7 +398,6 @@
         <dependency>
             <groupId>${ee.maven.groupId}</groupId>
             <artifactId>wildfly-servlet-feature-pack-galleon-legacy</artifactId>
-            <version>${ee.maven.version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -409,7 +405,6 @@
         <dependency>
             <groupId>${ee.maven.groupId}</groupId>
             <artifactId>wildfly-servlet-feature-pack-pruned</artifactId>
-            <version>${ee.maven.version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -417,7 +412,6 @@
         <dependency>
             <groupId>${ee.maven.groupId}</groupId>
             <artifactId>wildfly-ee-feature-pack-common</artifactId>
-            <version>${ee.maven.version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -425,7 +419,6 @@
         <dependency>
             <groupId>${ee.maven.groupId}</groupId>
             <artifactId>wildfly-ee-feature-pack-ee-8-api</artifactId>
-            <version>${ee.maven.version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -433,7 +426,6 @@
         <dependency>
             <groupId>${ee.maven.groupId}</groupId>
             <artifactId>wildfly-ee-feature-pack-galleon-common</artifactId>
-            <version>${ee.maven.version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -441,7 +433,6 @@
         <dependency>
             <groupId>${ee.maven.groupId}</groupId>
             <artifactId>wildfly-ee-feature-pack-galleon-content</artifactId>
-            <version>${ee.maven.version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -449,7 +440,6 @@
         <dependency>
             <groupId>${ee.maven.groupId}</groupId>
             <artifactId>wildfly-ee-feature-pack-pruned</artifactId>
-            <version>${ee.maven.version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>

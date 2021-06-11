@@ -86,7 +86,6 @@
         <dependency>
             <groupId>${ee.maven.groupId}</groupId>
             <artifactId>wildfly-servlet-feature-pack-pruned</artifactId>
-            <version>${ee.maven.version}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
