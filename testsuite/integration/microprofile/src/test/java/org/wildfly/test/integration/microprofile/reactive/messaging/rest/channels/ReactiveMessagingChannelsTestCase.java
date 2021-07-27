@@ -40,6 +40,9 @@ import java.util.Map;
 import javax.management.MBeanPermission;
 import javax.management.MBeanServerPermission;
 
+import javax.management.MBeanPermission;
+import javax.management.MBeanServerPermission;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -87,24 +90,14 @@ public class ReactiveMessagingChannelsTestCase {
                         EmitterToSubscribedChannelPublisherBuilderEndpoint.class,
                         EmitterToChannelPublisherViaKafkaEndpoint.class)
                 .addAsManifestResource(createPermissionsXmlAsset(
-                        // These are tracked in https://issues.redhat.com/browse/WFLY-15071 and can be reduced
-                        // eventually.
-                        // This one seems valid
-                        new SocketPermission("*", "connect, resolve"),
-                        // Really this is only /Users/kabir/.m2/repository/org/jboss/resteasy/resteasy-jaxrs/3.15.1.Final/resteasy-jaxrs-3.15.1.Final.jar
-                        // I am doing <<ALL FILES>> simply to not have to figure out the maven repository location and version
-                        // The real fix will be in javax.ws.rs.ext.FactoryFinder.find() which should use a privileged
-                        // block when loading the services. When it cannot find the RestEasy implementation, it
-                        // ends up throwing a ClassNotFoundException since it defaults to the GlassFish implementation
-                        // which should not be used. Behind the scenes (which gets swallowed, it throws an
-                        // AccessControlException due to the missing file.
+                        // Permissions added by debugging when a SecurityException happens
+                        // A lot of these are swallowed and do not show up in the logs
+                        // It complains about files in the local maven repo, which may vary across environments
                         new FilePermission("<<ALL FILES>>", "read"),
-                        // This needs fixing in RestEasy probably
                         new SecurityPermission("insertProvider"),
-                        // These can be removed once https://github.com/smallrye/smallrye-reactive-messaging/pull/1334
-                        // has been merged and released.
                         new MBeanServerPermission("createMBeanServer"),
                         new MBeanPermission("*", "registerMBean, unregisterMBean"),
+                        new SocketPermission("*", "connect, resolve"),
                         new RuntimePermission("getClassLoader"),
                         new RuntimePermission("modifyThread"),
                         new RuntimePermission("setContextClassLoader")), "permissions.xml");
