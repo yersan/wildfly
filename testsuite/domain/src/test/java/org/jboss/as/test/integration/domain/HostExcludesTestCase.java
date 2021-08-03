@@ -186,12 +186,12 @@ public class HostExcludesTestCase extends BuildConfigurationTestBase {
                 "org.wildfly.extension.microprofile.reactive-messaging-smallrye",
                 "org.wildfly.extension.microprofile.reactive-streams-operators-smallrye"
         )),
-        WILDFLY_24_0("WildFly24.0", WILDFLY_23_0, Arrays.asList(
-                "org.wildfly.extension.opentelemetry-extension"
-        )),
+        WILDFLY_24_0("WildFly24.0", WILDFLY_23_0),
         // If an extension is added to this enum, also check if it is supplied by wildfly-galleon-pack. If so, add it also
         // to the internal mpExtensions Set defined on this class.
-        CURRENT(MAJOR, WILDFLY_24_0);
+        CURRENT(MAJOR, WILDFLY_24_0, Arrays.asList(
+                "org.wildfly.extension.opentelemetry-extension"
+        ));
 
         private final String name;
         private final Set<String> extensions = new HashSet<>();
