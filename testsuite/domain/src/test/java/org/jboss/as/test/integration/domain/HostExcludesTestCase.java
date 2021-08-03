@@ -191,7 +191,7 @@ public class HostExcludesTestCase extends BuildConfigurationTestBase {
         )),
         // If an extension is added to this enum, also check if it is supplied by wildfly-galleon-pack. If so, add it also
         // to the internal mpExtensions Set defined on this class.
-        CURRENT(MAJOR, WILDFLY_23_0);
+        CURRENT(MAJOR, WILDFLY_24_0);
 
         private final String name;
         private final Set<String> extensions = new HashSet<>();
