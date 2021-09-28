@@ -196,6 +196,7 @@ public class HostExcludesTestCase extends BuildConfigurationTestBase {
 
         private final String name;
         private final Set<String> extensions = new HashSet<>();
+        private final Set<String> removed = new HashSet<>();
         private static final Map<String, ExtensionConf> MAP;
         private final boolean modified;
 
@@ -239,11 +240,17 @@ public class HostExcludesTestCase extends BuildConfigurationTestBase {
             if (addedExtensions != null) {
                 this.extensions.addAll(addedExtensions);
             }
-            if (parent != null && parent.extensions != null) {
-                this.extensions.addAll(parent.extensions);
+            if (parent != null) {
+                if (parent.extensions != null) {
+                    this.extensions.addAll(parent.extensions);
+                }
+                if (parent.removed != null) {
+                    this.removed.addAll(parent.removed);
+                }
             }
             if (removedExtensions != null) {
                 this.extensions.removeAll(removedExtensions);
+                this.removed.addAll(removedExtensions);
             }
         }
 
@@ -258,6 +265,10 @@ public class HostExcludesTestCase extends BuildConfigurationTestBase {
 
         public static ExtensionConf forName(String name) {
             return MAP.get(name);
+        }
+
+        public Set<String> getRemovedExtensions() {
+            return removed;
         }
 
         public Set<String> getExtensions(boolean isEeGalleonPack) {
@@ -361,8 +372,9 @@ public class HostExcludesTestCase extends BuildConfigurationTestBase {
                     "This host-exclude name is not defined in this test: %s", name),
                     confPrevRelease);
 
-            //check that available extensions - excluded extensions = expected extensions in a previous release.
+            //check that available extensions - excluded extensions - removed = expected extensions in a previous release.
             Set<String> expectedExtensions = ExtensionConf.forName(name).getExtensions(isEeGalleonPack);
+            expectedExtensions.removeAll(ExtensionConf.forName(MAJOR).getRemovedExtensions());
 
             Set<String> extensionsUnderTest = new HashSet<>(availableExtensions);
             extensionsUnderTest.removeAll(excludedExtensions);
