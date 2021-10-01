@@ -37,14 +37,15 @@ import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.STE
 import static org.jboss.as.test.integration.domain.management.util.DomainTestSupport.safeClose;
 import static org.jboss.as.test.shared.integration.ejb.security.PermissionUtils.createPermissionsXmlAsset;
 
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Properties;
 import java.util.PropertyPermission;
@@ -170,7 +171,9 @@ public class JVMServerPropertiesTestCase {
 
         String response = performHttpCall(DomainTestSupport.masterAddress, port, PROP_SERVLET_APP_URL);
         Properties p = new Properties();
-        p.load(new StringReader(response));
+        try (StringReader isr = new StringReader(response.replace("\\", "\\\\"))) {
+            p.load(isr);
+        }
 
         Assert.assertEquals(serverBaseDir.toAbsolutePath().toString(), p.getProperty("test.jboss.server.base.dir"));
         Assert.assertEquals(serverLogDir.toAbsolutePath().toString(), p.getProperty("test.jboss.server.log.dir"));
@@ -181,21 +184,27 @@ public class JVMServerPropertiesTestCase {
     private static String performHttpCall(String host, int port, String context) throws IOException {
         URLConnection conn;
         InputStream in = null;
-        StringWriter writer = new StringWriter();
+        BufferedReader input = null;
+        InputStreamReader isr = null;
         try {
             URL url = new URL("http://" + TestSuiteEnvironment.formatPossibleIpv6Address(host) + ":" + port + "/" + context);
             conn = url.openConnection();
             conn.setDoInput(true);
-            in = new BufferedInputStream(conn.getInputStream());
-            int i = in.read();
-            while (i != -1) {
-                writer.write((char) i);
-                i = in.read();
+
+            in = conn.getInputStream();
+            isr = new InputStreamReader(in, StandardCharsets.UTF_8);
+            input = new BufferedReader(isr);
+            StringBuilder strBuilder = new StringBuilder();
+            String str;
+            while (null != (str = input.readLine())) {
+                strBuilder.append(str).append("\r\n");
             }
-            return writer.toString();
+
+            return strBuilder.toString();
         } finally {
+            safeClose(input);
+            safeClose(isr);
             safeClose(in);
-            safeClose(writer);
         }
     }
 
