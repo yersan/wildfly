@@ -99,8 +99,8 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
+            <groupId>org.apache.geronimo.javamail</groupId>
+            <artifactId>geronimo-javamail_1.6</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

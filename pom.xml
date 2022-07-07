@@ -4765,6 +4765,12 @@
                 <scope>test</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.geronimo.javamail</groupId>
+                <artifactId>geronimo-javamail_1.6</artifactId>
+                <version>1.0.1</version>
+                <type>pom</type>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>

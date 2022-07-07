@@ -121,10 +121,15 @@
                 </exclusions>
             </dependency>
 
+<!--            <dependency>-->
+<!--                <groupId>com.sun.mail</groupId>-->
+<!--                <artifactId>jakarta.mail</artifactId>-->
+<!--                <version>${version.jakarta.mail}</version>-->
+<!--            </dependency>-->
             <dependency>
-                <groupId>com.sun.mail</groupId>
-                <artifactId>jakarta.mail</artifactId>
-                <version>${version.jakarta.mail}</version>
+                <groupId>org.apache.geronimo.javamail</groupId>
+                <artifactId>geronimo-javamail_1.6</artifactId>
+                <version>1.0.1</version>
             </dependency>
 
             <dependency>
