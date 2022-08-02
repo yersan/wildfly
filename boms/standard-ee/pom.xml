@@ -3877,8 +3877,32 @@
             </dependency>
 
             <dependency>
+                <groupId>org.wildfly.security</groupId>
+                <artifactId>wildfly-elytron-http-stateful-basic</artifactId>
+                <version>${version.org.wildfly.security.elytron}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
                 <groupId>org.wildfly.security.elytron-web</groupId>
                 <artifactId>undertow-server-servlet</artifactId>
+                <version>${version.org.wildfly.security.elytron-web}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.wildfly.security.elytron-web</groupId>
+                <artifactId>undertow-server</artifactId>
                 <version>${version.org.wildfly.security.elytron-web}</version>
                 <exclusions>
                     <exclusion>
