@@ -34,4 +34,9 @@ end-if
 
 /subsystem=iiop-openjdk:write-attribute(name=security, value=elytron)
 
+/subsystem=logging/root-logger=ROOT:write-attribute(name=level, value=DEBUG)
+/subsystem=logging/console-handler=CONSOLE:write-attribute(name=level, value=DEBUG)
+/subsystem=logging/logger=org.wildfly.security:add
+/subsystem=logging/logger=org.wildfly.security:write-attribute(name=level, value=DEBUG)
+
 stop-embedded-server
