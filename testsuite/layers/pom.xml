@@ -2440,6 +2440,8 @@
                                                 <layer>microprofile-fault-tolerance</layer>
                                                 <layer>microprofile-health</layer>
                                                 <layer>microprofile-jwt</layer>
+                                                <layer>microprofile-lra-coordinator</layer>
+                                                <layer>microprofile-lra-participant</layer>
                                                 <layer>microprofile-metrics</layer>
                                                 <layer>microprofile-openapi</layer>
                                                 <layer>microprofile-opentracing</layer>

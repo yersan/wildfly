@@ -202,7 +202,9 @@ public class HostExcludesTestCase extends BuildConfigurationTestBase {
         )),
         WILDFLY_27_0("WildFly27.0", WILDFLY_26_0, Arrays.asList(
                 "org.wildfly.extension.clustering.ejb",
-                "org.wildfly.extension.datasources-agroal"
+                "org.wildfly.extension.datasources-agroal",
+                "org.wildfly.extension.microprofile.lra-coordinator",
+                "org.wildfly.extension.microprofile.lra-participant"
         )),
         // If an extension is added to this enum, also check if it is supplied only by wildfly-galleon-pack. If so, add it also
         // to the internal mpExtensions Set defined on this class.
@@ -244,7 +246,9 @@ public class HostExcludesTestCase extends BuildConfigurationTestBase {
                 "org.wildfly.extension.microprofile.jwt-smallrye",
                 "org.wildfly.extension.microprofile.openapi-smallrye",
                 "org.wildfly.extension.microprofile.reactive-messaging-smallrye",
-                "org.wildfly.extension.microprofile.reactive-streams-operators-smallrye"
+                "org.wildfly.extension.microprofile.reactive-streams-operators-smallrye",
+                "org.wildfly.extension.microprofile.lra-coordinator",
+                "org.wildfly.extension.microprofile.lra-participant"
         ));
 
         // List of extensions added only by the WildFly Preview
