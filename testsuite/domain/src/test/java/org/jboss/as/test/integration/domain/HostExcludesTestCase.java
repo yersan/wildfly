@@ -202,15 +202,16 @@ public class HostExcludesTestCase extends BuildConfigurationTestBase {
         )),
         WILDFLY_27_0("WildFly27.0", WILDFLY_26_0, Arrays.asList(
                 "org.wildfly.extension.clustering.ejb",
-                "org.wildfly.extension.datasources-agroal",
-                "org.wildfly.extension.microprofile.lra-coordinator",
-                "org.wildfly.extension.microprofile.lra-participant"
+                "org.wildfly.extension.datasources-agroal"
         )),
         // If an extension is added to this enum, also check if it is supplied only by wildfly-galleon-pack. If so, add it also
         // to the internal mpExtensions Set defined on this class.
         // Don't add here extensions supplied only by the wildfly-preview-feature-pack because we are not tracking different releases
         // of wildfly preview. In such a case, add them to previewExtensions set defined below.
-        CURRENT(MAJOR, WILDFLY_27_0, null, getCurrentRemovedExtensions());
+        CURRENT(MAJOR, WILDFLY_27_0, Arrays.asList(
+                "org.wildfly.extension.microprofile.lra-coordinator",
+                "org.wildfly.extension.microprofile.lra-participant"),
+                getCurrentRemovedExtensions());
 
         private static List<String> getCurrentRemovedExtensions() {
             // TODO If we decide to remove these modules from WFP, uncomment this.
