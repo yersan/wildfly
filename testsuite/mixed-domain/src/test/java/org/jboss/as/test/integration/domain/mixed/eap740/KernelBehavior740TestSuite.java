@@ -23,12 +23,17 @@
 package org.jboss.as.test.integration.domain.mixed.eap740;
 
 import org.jboss.as.test.integration.domain.mixed.KernelBehaviorTestSuite;
+import org.jboss.as.test.integration.domain.mixed.MixedDomainTestSuite;
 import org.jboss.as.test.integration.domain.mixed.Version;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
+ * Testsuite for tests that uses a minimal domain config in order
+ * to not have to deal with subsystem configuration compatibility issues
+ * across releases in tests that are focused on the behavior of the kernel.
  *
  * @author Brian Stansberry
  */
@@ -37,8 +42,28 @@ import org.junit.runners.Suite;
 @Version(Version.AsVersion.EAP_7_4_0)
 public class KernelBehavior740TestSuite extends KernelBehaviorTestSuite {
 
+    private static boolean initializedLocally = false;
+
     @BeforeClass
-    public static void initializeDomain() {
+    public static void initSuite() {
+        initializedLocally = true;
         KernelBehaviorTestSuite.getSupport(KernelBehavior740TestSuite.class);
+    }
+
+    @AfterClass
+    public static void tearDownSuite() {
+        MixedDomainTestSuite.afterClass();
+    }
+
+    // This can only be called from tests as part of this suite
+    public static synchronized void createSupport(Class<?> testClass) {
+        KernelBehaviorTestSuite.getSupport(testClass);
+    }
+
+    // This can only be called from tests as part of this suite
+    public static synchronized void stopSupport() {
+        if(! initializedLocally) {
+            MixedDomainTestSuite.afterClass();
+        }
     }
 }

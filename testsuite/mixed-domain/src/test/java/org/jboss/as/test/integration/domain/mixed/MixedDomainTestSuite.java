@@ -25,9 +25,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.nio.file.Path;
 
-import org.junit.AfterClass;
-
 /**
+ * Base class for the mixed domain test suite.
  *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
  */
@@ -176,7 +175,6 @@ public class MixedDomainTestSuite {
         }
     }
 
-    @AfterClass
     public static synchronized void afterClass() {
         stop();
     }

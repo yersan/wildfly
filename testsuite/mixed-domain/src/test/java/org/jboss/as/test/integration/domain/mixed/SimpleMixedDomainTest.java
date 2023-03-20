@@ -70,7 +70,6 @@ import org.jboss.as.test.integration.domain.management.util.DomainTestUtils;
 import org.jboss.as.test.shared.TestSuiteEnvironment;
 import org.jboss.dmr.ModelNode;
 import org.jboss.dmr.Property;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -93,11 +92,6 @@ public abstract class SimpleMixedDomainTest  {
     public void init() throws Exception {
         support = MixedDomainTestSuite.getSupport(this.getClass());
         version = MixedDomainTestSuite.getVersion(this.getClass());
-    }
-
-    @AfterClass
-    public static synchronized void afterClass() {
-        MixedDomainTestSuite.afterClass();
     }
 
     @Test

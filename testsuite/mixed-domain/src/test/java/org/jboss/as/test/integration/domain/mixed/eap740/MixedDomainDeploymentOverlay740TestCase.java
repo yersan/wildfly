@@ -25,6 +25,7 @@ package org.jboss.as.test.integration.domain.mixed.eap740;
 import org.jboss.as.test.integration.domain.mixed.MixedDeploymentOverlayTestCase;
 import org.jboss.as.test.integration.domain.mixed.Version;
 import org.jboss.as.test.integration.domain.mixed.Version.AsVersion;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 /**
@@ -32,9 +33,16 @@ import org.junit.BeforeClass;
  */
 @Version(AsVersion.EAP_7_4_0)
 public class MixedDomainDeploymentOverlay740TestCase extends MixedDeploymentOverlayTestCase {
+
     @BeforeClass
     public static void beforeClass() {
-        MixedDomainOverlay740TestSuite.initializeDomain();
+        MixedDomainOverlay740TestSuite.createSupport(MixedDomainDeploymentOverlay740TestCase.class);
         MixedDeploymentOverlayTestCase.setupDomain();
+    }
+
+    @AfterClass
+    public static void afterClass() throws Exception {
+        MixedDeploymentOverlayTestCase.tearDownDomain();
+        MixedDomainOverlay740TestSuite.stopSupport();
     }
 }

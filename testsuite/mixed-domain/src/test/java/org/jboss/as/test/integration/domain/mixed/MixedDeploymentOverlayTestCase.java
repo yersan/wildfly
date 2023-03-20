@@ -16,6 +16,7 @@
 package org.jboss.as.test.integration.domain.mixed;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.ADD;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.ARCHIVE;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.BYTES;
@@ -34,7 +35,6 @@ import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SER
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.STEPS;
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.UNDEPLOY;
 import static org.junit.Assert.assertFalse;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -54,6 +54,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
 import org.hamcrest.CoreMatchers;
 import org.jboss.as.controller.PathAddress;
 import org.jboss.as.controller.PathElement;
@@ -71,7 +72,6 @@ import org.jboss.shrinkwrap.api.exporter.ZipExporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.threads.AsyncFuture;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -96,19 +96,17 @@ public class MixedDeploymentOverlayTestCase {
 
 
     public static void setupDomain() {
-        testSupport = MixedDomainTestSuite.getSupport(MixedDeploymentOverlayTestCase.class, false);
+        testSupport = MixedDomainTestSuite.getSupport(MixedDeploymentOverlayTestCase.class);
         primaryClient = testSupport.getDomainPrimaryLifecycleUtil().getDomainClient();
         secondaryClient = testSupport.getDomainSecondaryLifecycleUtil().getDomainClient();
     }
 
-    @AfterClass
     public static void tearDownDomain() throws Exception {
         testSupport = null;
         primaryClient.close();
         primaryClient = null;
         secondaryClient.close();
         secondaryClient = null;
-        MixedDomainTestSuite.afterClass();
     }
 
     @Before

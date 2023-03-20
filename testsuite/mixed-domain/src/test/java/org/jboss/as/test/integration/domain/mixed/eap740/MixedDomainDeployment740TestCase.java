@@ -25,6 +25,7 @@ package org.jboss.as.test.integration.domain.mixed.eap740;
 import org.jboss.as.test.integration.domain.mixed.MixedDomainDeploymentTest;
 import org.jboss.as.test.integration.domain.mixed.Version;
 import org.jboss.as.test.integration.domain.mixed.Version.AsVersion;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 /**
@@ -35,11 +36,16 @@ import org.junit.BeforeClass;
 public class MixedDomainDeployment740TestCase extends MixedDomainDeploymentTest {
     @BeforeClass
     public static void beforeClass() {
-        MixedDomain740TestSuite.initializeDomain();
+        MixedDomain740TestSuite.createSupport(MixedDomainDeployment740TestCase.class);
     }
 
     @Override
     protected boolean supportManagedExplodedDeployment() {
         return true;
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        MixedDomain740TestSuite.stopSupport();
     }
 }

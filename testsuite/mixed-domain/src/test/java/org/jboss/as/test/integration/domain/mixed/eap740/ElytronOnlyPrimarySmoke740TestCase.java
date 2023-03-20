@@ -24,6 +24,7 @@ package org.jboss.as.test.integration.domain.mixed.eap740;
 
 import org.jboss.as.test.integration.domain.mixed.ElytronOnlyPrimarySmokeTestCase;
 import org.jboss.as.test.integration.domain.mixed.Version;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 /**
@@ -34,6 +35,11 @@ public class ElytronOnlyPrimarySmoke740TestCase extends ElytronOnlyPrimarySmokeT
 
     @BeforeClass
     public static void beforeClass() {
-        ElytronOnlyPrimary740TestSuite.initializeDomain();
+        ElytronOnlyPrimary740TestSuite.createSupport(ElytronOnlyPrimarySmoke740TestCase.class);
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        MixedDomain740TestSuite.stopSupport();
     }
 }

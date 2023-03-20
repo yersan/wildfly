@@ -53,7 +53,6 @@ import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.as.controller.operations.common.Util;
 import org.jboss.as.test.integration.domain.management.util.DomainTestSupport;
 import org.jboss.dmr.ModelNode;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -80,9 +79,7 @@ public class RBACConfigTestCase {
         secondaryClient = support.getDomainSecondaryLifecycleUtil().getDomainClient();
     }
 
-    @AfterClass
     public static synchronized void afterClass() {
-        KernelBehaviorTestSuite.afterClass();
         primaryClient = secondaryClient = null;
     }
 

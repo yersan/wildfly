@@ -24,6 +24,7 @@ package org.jboss.as.test.integration.domain.mixed.eap740;
 
 import org.jboss.as.test.integration.domain.mixed.Version;
 import org.jboss.as.test.integration.domain.mixed.WildcardReadsTestCase;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 /**
@@ -35,7 +36,11 @@ public class WildcardReads740TestCase extends WildcardReadsTestCase {
 
     @BeforeClass
     public static void beforeClass() {
-        KernelBehavior740TestSuite.initializeDomain();
+        KernelBehavior740TestSuite.createSupport(WildcardReads740TestCase.class);
     }
 
+    @AfterClass
+    public static void afterClass() {
+        KernelBehavior740TestSuite.stopSupport();
+    }
 }

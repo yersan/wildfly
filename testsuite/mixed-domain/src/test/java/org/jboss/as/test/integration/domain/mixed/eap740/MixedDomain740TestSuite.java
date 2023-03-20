@@ -25,6 +25,7 @@ package org.jboss.as.test.integration.domain.mixed.eap740;
 import org.jboss.as.test.integration.domain.mixed.MixedDomainTestSuite;
 import org.jboss.as.test.integration.domain.mixed.Version;
 import org.jboss.as.test.integration.domain.mixed.Version.AsVersion;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -38,9 +39,28 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses(value= {SimpleMixedDomain740TestCase.class, MixedDomainDeployment740TestCase.class})
 @Version(AsVersion.EAP_7_4_0)
 public class MixedDomain740TestSuite extends MixedDomainTestSuite {
+    private static boolean initializedLocally = false;
 
     @BeforeClass
-    public static void initializeDomain() {
+    public static void initSuite() {
+        initializedLocally = true;
         MixedDomainTestSuite.getSupport(MixedDomain740TestSuite.class);
+    }
+
+    @AfterClass
+    public static void tearDownSuite() {
+        MixedDomainTestSuite.afterClass();
+    }
+
+    // This can only be called from tests as part of this suite
+    public static synchronized void createSupport(Class<?> testClass) {
+        MixedDomainTestSuite.getSupport(testClass);
+    }
+
+    // This can only be called from tests as part of this suite
+    public static synchronized void stopSupport() {
+        if(! initializedLocally) {
+            MixedDomainTestSuite.afterClass();
+        }
     }
 }

@@ -24,6 +24,7 @@ package org.jboss.as.test.integration.domain.mixed.eap740;
 
 import org.jboss.as.test.integration.domain.mixed.RBACConfigTestCase;
 import org.jboss.as.test.integration.domain.mixed.Version;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 /**
@@ -36,6 +37,12 @@ public class RBACConfig740TestCase extends RBACConfigTestCase {
 
     @BeforeClass
     public static void beforeClass() {
-        KernelBehavior740TestSuite.initializeDomain();
+        KernelBehavior740TestSuite.createSupport(RBACConfig740TestCase.class);
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        KernelBehavior740TestSuite.stopSupport();
+        RBACConfigTestCase.afterClass();
     }
 }

@@ -23,7 +23,9 @@
 package org.jboss.as.test.integration.domain.mixed.eap740;
 
 import org.jboss.as.test.integration.domain.mixed.ElytronOnlyPrimaryTestSuite;
+import org.jboss.as.test.integration.domain.mixed.MixedDomainTestSuite;
 import org.jboss.as.test.integration.domain.mixed.Version;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -35,9 +37,28 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses(value= {ElytronOnlyPrimarySmoke740TestCase.class})
 @Version(Version.AsVersion.EAP_7_4_0)
 public class ElytronOnlyPrimary740TestSuite extends ElytronOnlyPrimaryTestSuite {
+    private static boolean initializedLocally = false;
 
     @BeforeClass
-    public static void initializeDomain() {
+    public static void initSuite() {
+        initializedLocally = true;
         ElytronOnlyPrimaryTestSuite.getSupport(ElytronOnlyPrimary740TestSuite.class);
+    }
+
+    @AfterClass
+    public static void tearDownSuite() {
+        MixedDomainTestSuite.afterClass();
+    }
+
+    // This can only be called from tests as part of this suite
+    public static synchronized void createSupport(Class<?> testClass) {
+        MixedDomainTestSuite.getSupport(testClass);
+    }
+
+    // This can only be called from tests as part of this suite
+    public static synchronized void stopSupport() {
+        if(! initializedLocally) {
+            MixedDomainTestSuite.afterClass();
+        }
     }
 }

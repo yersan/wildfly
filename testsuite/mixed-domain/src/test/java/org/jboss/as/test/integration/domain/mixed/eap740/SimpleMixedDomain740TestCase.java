@@ -25,6 +25,7 @@ package org.jboss.as.test.integration.domain.mixed.eap740;
 import org.jboss.as.test.integration.domain.mixed.SimpleMixedDomainTest;
 import org.jboss.as.test.integration.domain.mixed.Version;
 import org.jboss.as.test.integration.domain.mixed.Version.AsVersion;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 /**
@@ -36,6 +37,11 @@ public class SimpleMixedDomain740TestCase extends SimpleMixedDomainTest {
 
     @BeforeClass
     public static void beforeClass() {
-        MixedDomain740TestSuite.initializeDomain();
+        MixedDomain740TestSuite.createSupport(SimpleMixedDomain740TestCase.class);
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        MixedDomain740TestSuite.stopSupport();
     }
 }
