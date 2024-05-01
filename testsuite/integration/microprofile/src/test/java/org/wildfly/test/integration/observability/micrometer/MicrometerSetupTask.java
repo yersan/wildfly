@@ -5,6 +5,7 @@
 package org.wildfly.test.integration.observability.micrometer;
 
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.STATISTICS_ENABLED;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SUBSYSTEM;
 
 import org.jboss.as.arquillian.container.ManagementClient;
 import org.jboss.as.controller.client.helpers.Operations;
@@ -29,6 +30,8 @@ public class MicrometerSetupTask extends AbstractSetupTask {
 
     @Override
     public void setup(final ManagementClient managementClient, String containerId) throws Exception {
+        otelCollector = OpenTelemetryCollectorContainer.getInstance();
+
         executeOp(managementClient, writeAttribute("undertow", STATISTICS_ENABLED, "true"));
 
         if (!Operations.isSuccessfulOutcome(executeRead(managementClient, micrometerExtension))) {
@@ -37,27 +40,24 @@ public class MicrometerSetupTask extends AbstractSetupTask {
         }
 
         if (!Operations.isSuccessfulOutcome(executeRead(managementClient, micrometerSubsystem))) {
-            ModelNode addOp = Operations.createAddOperation(micrometerSubsystem);
-            addOp.get("endpoint").set("http://localhost:4318/v1/metrics"); // Default endpoint
-            executeOp(managementClient, addOp);
+            executeOp(managementClient, Operations.createAddOperation(micrometerSubsystem));
             subsystemAdded = true;
         }
 
-        if (dockerAvailable) {
-            otelCollector = OpenTelemetryCollectorContainer.getInstance();
-            executeOp(managementClient, writeAttribute("micrometer", "endpoint",
-                    otelCollector.getOtlpHttpEndpoint() + "/v1/metrics"));
-            executeOp(managementClient, writeAttribute("micrometer", "step", "1"));
+        final ModelNode otlpRegistryAddress = Operations.createAddress(SUBSYSTEM, "micrometer", "registry", "otlp");
+        if (!Operations.isSuccessfulOutcome(executeRead(managementClient, otlpRegistryAddress))) {
+            executeOp(managementClient, Operations.createAddOperation(otlpRegistryAddress));
         }
+        executeOp(managementClient, writeAttribute(otlpRegistryAddress,
+                "endpoint", otelCollector.getOtlpHttpEndpoint() + "/v1/metrics"));
+        executeOp(managementClient, writeAttribute(otlpRegistryAddress, "step", "1"));
 
         ServerReload.executeReloadAndWaitForCompletion(managementClient);
     }
 
     @Override
     public void tearDown(final ManagementClient managementClient, String containerId) throws Exception {
-        if (dockerAvailable) {
-            otelCollector.stop();
-        }
+        otelCollector.stop();
 
         executeOp(managementClient, clearAttribute("undertow", STATISTICS_ENABLED));
         if (subsystemAdded) {
