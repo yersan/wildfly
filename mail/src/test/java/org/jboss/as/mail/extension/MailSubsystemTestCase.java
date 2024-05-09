@@ -71,7 +71,8 @@ public class MailSubsystemTestCase extends AbstractSubsystemBaseTest {
                 new Object[] { 1, 2 },
                 new Object[] { 2, 0 },
                 new Object[] { 3, 0 },
-                new Object[] { 4, 0 });
+                new Object[] { 4, 0 },
+                new Object[] { 5, 0 });
     }
 
     private final Map<ServiceName, Supplier<Object>> values = new ConcurrentHashMap<>();
