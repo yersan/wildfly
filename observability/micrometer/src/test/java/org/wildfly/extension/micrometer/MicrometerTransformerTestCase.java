@@ -1,5 +1,8 @@
 package org.wildfly.extension.micrometer;
 
+import static org.wildfly.extension.micrometer.MicrometerSubsystemModel.VERSION_1_1_0;
+import static org.wildfly.extension.micrometer.MicrometerSubsystemModel.VERSION_2_0_0;
+
 import java.util.EnumSet;
 import java.util.Objects;
 
@@ -37,7 +40,7 @@ public class MicrometerTransformerTestCase extends AbstractSubsystemTest {
     public MicrometerTransformerTestCase(ModelTestControllerVersion controller) {
         super(MicrometerConfigurationConstants.NAME, new MicrometerExtension());
         this.controller = controller;
-        version = getModelVersion().getVersion();
+        version = VERSION_2_0_0.getVersion();
     }
 
     @Test
@@ -51,19 +54,18 @@ public class MicrometerTransformerTestCase extends AbstractSubsystemTest {
                 .setSubsystemXmlResource(subsystemXmlResource);
 
         // initialize the legacy services and add required jars
-        builder.createLegacyKernelServicesBuilder(additionalInitialization, controller, version)
+        builder.createLegacyKernelServicesBuilder(additionalInitialization, controller, VERSION_1_1_0.getVersion())
                 .skipReverseControllerCheck()
                 .addMavenResourceURL(getDependencies())
-//                .addSingleChildFirstClass(AdditionalInitialization.class)
                 .dontPersistXml();
 
         KernelServices services = builder.build();
 
         Assert.assertTrue(services.isSuccessfulBoot());
-        Assert.assertTrue(services.getLegacyServices(version).isSuccessfulBoot());
+        Assert.assertTrue(services.getLegacyServices(VERSION_1_1_0.getVersion()).isSuccessfulBoot());
 
         // check that both versions of the legacy model are the same and valid
-        checkSubsystemModelTransformation(services, version, null, false);
+        checkSubsystemModelTransformation(services, VERSION_1_1_0.getVersion(), null, false);
     }
 
     @Test
@@ -77,7 +79,7 @@ public class MicrometerTransformerTestCase extends AbstractSubsystemTest {
 
     private MicrometerSubsystemModel getModelVersion() {
         if (Objects.requireNonNull(controller) == ModelTestControllerVersion.EAP_8_0_0) {
-            return MicrometerSubsystemModel.VERSION_2_0_0;
+            return VERSION_1_1_0;
         }
         throw new IllegalArgumentException();
     }
@@ -85,7 +87,7 @@ public class MicrometerTransformerTestCase extends AbstractSubsystemTest {
     private String[] getDependencies() {
         if (Objects.requireNonNull(controller) == ModelTestControllerVersion.EAP_8_0_0) {
             return new String[]{
-//                    formatSubsystemArtifact()
+                    formatSubsystemArtifact()
             };
         }
         throw new IllegalArgumentException();
