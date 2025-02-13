@@ -52,6 +52,7 @@ class MailSessionDefinition extends PersistentResourceDefinition {
                     .setAllowExpression(true)
                     .setRequired(false)
                     .build();
+
     protected static final SimpleAttributeDefinition DEBUG =
             new SimpleAttributeDefinitionBuilder(MailSubsystemModel.DEBUG, ModelType.BOOLEAN, true)
                     .setAllowExpression(true)
@@ -59,7 +60,14 @@ class MailSessionDefinition extends PersistentResourceDefinition {
                     .setFlags(AttributeAccess.Flag.RESTART_RESOURCE_SERVICES)
                     .build();
 
-    static final AttributeDefinition[] ATTRIBUTES = {DEBUG, JNDI_NAME, FROM};
+    protected static final SimpleAttributeDefinition TEST =
+            new SimpleAttributeDefinitionBuilder(MailSubsystemModel.TEST, ModelType.BOOLEAN, true)
+                    .setAllowExpression(true)
+                    .setDefaultValue(ModelNode.FALSE)
+                    .setRestartAllServices()
+                    .build();
+
+    static final AttributeDefinition[] ATTRIBUTES = {DEBUG, JNDI_NAME, FROM, TEST};
 
     MailSessionDefinition() {
         super(new SimpleResourceDefinition.Parameters(MailExtension.MAIL_SESSION_PATH,
