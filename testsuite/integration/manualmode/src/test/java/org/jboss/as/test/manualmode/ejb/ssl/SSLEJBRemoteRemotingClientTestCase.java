@@ -5,6 +5,28 @@
 
 package org.jboss.as.test.manualmode.ejb.ssl;
 
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.ALLOW_RESOURCE_SERVICE_RESTART;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.OPERATION_HEADERS;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.PATH;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.PLAIN_TEXT;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.PORT;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.PROTOCOL;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.REALM;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SASL_AUTHENTICATION_FACTORY;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SOCKET_BINDING;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SOCKET_BINDING_GROUP;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SSL_CONTEXT;
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SUBSYSTEM;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Properties;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+
 import org.jboss.arquillian.container.test.api.ContainerController;
 import org.jboss.arquillian.container.test.api.Deployer;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -35,25 +57,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import java.io.File;
-import java.io.IOException;
-import java.util.Properties;
-
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.ALLOW_RESOURCE_SERVICE_RESTART;
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.OPERATION_HEADERS;
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.PATH;
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.PLAIN_TEXT;
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.PORT;
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.PROTOCOL;
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.REALM;
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SASL_AUTHENTICATION_FACTORY;
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SOCKET_BINDING;
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SOCKET_BINDING_GROUP;
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SSL_CONTEXT;
-import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SUBSYSTEM;
 
 /**
  * @author <a href="mailto:tadamski@redhat.com">Tomasz Adamski</a>
@@ -92,12 +95,10 @@ public class SSLEJBRemoteRemotingClientTestCase {
     private static final String REMOTE = "remote";
     private static final String REMOTE_TLS = "remote+tls";
 
-    private static final File WORKDIR = new File(new File("").getAbsoluteFile().getAbsolutePath() + File.separatorChar + "target");
+    private static final Path WORKDIR = Paths.get(System.getProperty("basedir"), "target");
 
-    private static final String SERVER_KEY_STORE_PATH = new File(WORKDIR.getAbsoluteFile(), "test-classes/ejb3/ssl/jbossClient.keystore")
-            .getAbsolutePath();
-    private static final String SERVER_TRUST_STORE_PATH = new File(WORKDIR.getAbsoluteFile(), "test-classes/ejb3/ssl/jbossClient.truststore")
-            .getAbsolutePath();
+    private static final String SERVER_KEY_STORE_PATH = WORKDIR.resolve("test-classes/ejb3/ssl/jbossClient.keystore").toString();
+    private static final String SERVER_TRUST_STORE_PATH = WORKDIR.resolve("test-classes/ejb3/ssl/jbossClient.truststore").toString();
 
     private static final String USERS_PATH = new File(ElytronRemoteOutboundConnectionTestCase.class.getResource("users.properties").
             getFile()).getAbsolutePath();
@@ -333,7 +334,7 @@ public class SSLEJBRemoteRemotingClientTestCase {
         Properties props = new Properties();
         props.put(Context.INITIAL_CONTEXT_FACTORY,
                 "org.wildfly.naming.client.WildFlyInitialContextFactory");
-        props.put(Context.PROVIDER_URL, String.format("%s://%s:%d", protocol, "127.0.0.1", port));
+        props.put(Context.PROVIDER_URL, String.format("%s://%s:%d", protocol, TestSuiteEnvironment.getServerAddress(), port));
         props.put(Context.SECURITY_PRINCIPAL, "ejbRemoteTests");
         props.put(Context.SECURITY_CREDENTIALS, "ejbRemoteTestsPassword");
         return props;
