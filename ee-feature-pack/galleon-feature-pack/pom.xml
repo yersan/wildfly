@@ -233,7 +233,7 @@
                             <release-name>${ee.dist.product.release.name}</release-name>
                             <fork-embedded>${galleon.fork.embedded}</fork-embedded>
                             <generate-channel-manifest>true</generate-channel-manifest>
-                            <deploy-channel-manifest>false</deploy-channel-manifest>
+                            <deploy-channel-manifest>true</deploy-channel-manifest>
                         </configuration>
                     </execution>
                 </executions>
