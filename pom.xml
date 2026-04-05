@@ -594,6 +594,10 @@
             Maintain separation between these two frequently updated artifacts to avoid merge conflicts.
         -->
         <version.org.wildfly.core>32.0.0.Beta6</version.org.wildfly.core>
+        <!--
+            Maintain separation between these two frequently updated artifacts to avoid merge conflicts.
+        -->
+        <version.org.wildfly.security.jakarta.elytron-ee>3.2.0.Final</version.org.wildfly.security.jakarta.elytron-ee>
         <version.org.wildfly.http-client>2.1.4.Final</version.org.wildfly.http-client>
         <version.org.wildfly.launcher>1.0.2.Final</version.org.wildfly.launcher>
         <version.org.wildfly.mvc.krazo>2.0.1.Final</version.org.wildfly.mvc.krazo>
