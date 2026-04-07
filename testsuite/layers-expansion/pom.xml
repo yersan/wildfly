@@ -126,6 +126,7 @@
                 <surefire.default-test.phase>test</surefire.default-test.phase>
                 <!-- Use the transformed artifact repo -->
                 <maven.repo.local>${settings.localRepository}</maven.repo.local>
+                <dependency.management.import.test.artifact>wildfly-preview-test-expansion-bom</dependency.management.import.test.artifact>
             </properties>
         </profile>
 
