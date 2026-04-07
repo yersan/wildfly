@@ -143,6 +143,20 @@
                 <surefire.default-test.phase>none</surefire.default-test.phase>
             </properties>
         </profile>
+
+        <profile>
+            <id>preview-server-tests-config</id>
+            <activation>
+                <property>
+                    <name>preview-server-tests</name>
+                </property>
+            </activation>
+            <properties>
+                <!-- Use the WFP dependencies -->
+                <dependency.management.import.artifact>wildfly-preview-expansion-bom</dependency.management.import.artifact>
+                <dependency.management.import.test.artifact>wildfly-preview-test-expansion-bom</dependency.management.import.test.artifact>
+            </properties>
+        </profile>
     </profiles>
 
             <build>

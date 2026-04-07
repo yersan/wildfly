@@ -698,6 +698,7 @@
             </activation>
             <properties>
                 <!-- Use the WFP dependencies -->
+                <dependency.management.import.artifact>wildfly-preview-expansion-bom</dependency.management.import.artifact>
                 <dependency.management.import.test.artifact>wildfly-preview-test-expansion-bom</dependency.management.import.test.artifact>
             </properties>
         </profile>
@@ -718,7 +719,6 @@
                 <!-- Use the WFP dependencyManagement set.
                      This is set in this profile in a parent module, but the explicit global override
                      in this module takes precedence. -->
-                <dependency.management.import.artifact>wildfly-preview-expansion-bom</dependency.management.import.artifact>
                 <testsuite.ee.galleon.pack.artifactId>wildfly-preview-feature-pack</testsuite.ee.galleon.pack.artifactId>
                 <ts.glow.phase>test-compile</ts.glow.phase>
                 <ts.config-as.copy-mgmt-users.phase>test</ts.config-as.copy-mgmt-users.phase>
@@ -1000,11 +1000,6 @@
                 <ts.glow.phase>test-compile</ts.glow.phase>
                 <ts.glow.config-name>standalone.xml</ts.glow.config-name>
                 <ts.bootable-jar-packaging.phase>test-compile</ts.bootable-jar-packaging.phase>
-
-                <!-- Use the WFP dependencyManagement set.
-                     This is set in this profile in a parent module, but the explicit global override
-                     in this module takes precedence. -->
-                <dependency.management.import.artifact>wildfly-preview-expansion-bom</dependency.management.import.artifact>
             </properties>
             <build>
                 <plugins>
