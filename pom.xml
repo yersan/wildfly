@@ -2046,6 +2046,9 @@
                 <!-- If we are using channel-driven provisioning, use the wildfly-ee channel -->
                 <channel.maven.artifactId>wildfly-ee</channel.maven.artifactId>
                 <channel.maven.version>${ee.maven.version}</channel.maven.version>
+                <!-- If we are using this feature pack to provision testsuite installations, assume that
+                     for testsuites that use pre-built installations we want the corresponding ones. -->
+                <testsuite.default.build.project.prefix>ee-</testsuite.default.build.project.prefix>
             </properties>
         </profile>
 
