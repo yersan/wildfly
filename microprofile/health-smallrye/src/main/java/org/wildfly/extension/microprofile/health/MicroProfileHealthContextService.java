@@ -11,9 +11,9 @@ import io.smallrye.health.SmallRyeHealth;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
+import org.jboss.as.controller.CapabilityServiceBuilder;
 import org.jboss.as.controller.OperationContext;
 import org.jboss.msc.Service;
-import org.jboss.msc.service.ServiceBuilder;
 import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StopContext;
 import org.wildfly.extension.health.HealthContextService;
@@ -27,13 +27,12 @@ public class MicroProfileHealthContextService implements Service {
     private final Supplier<HealthContextService> healthContextService;
 
     static void install(OperationContext context) {
-        ServiceBuilder<?> builder = context.getCapabilityServiceTarget().addService();
+        CapabilityServiceBuilder<?> builder = context.getCapabilityServiceTarget().addService();
 
         Supplier<HealthContextService> healthContextService = builder.requires(context.getCapabilityServiceName(MicroProfileHealthSubsystemDefinition.HEALTH_HTTP_CONTEXT_CAPABILITY, HealthContextService.class));
-        Supplier<MicroProfileHealthReporter> healthReporter = builder.requires(context.getCapabilityServiceName(MicroProfileHealthSubsystemDefinition.MICROPROFILE_HEALTH_REPORTER_CAPABILITY, MicroProfileHealthReporter.class));
+        Supplier<MicroProfileHealthReporter> healthReporter = builder.requires(MicroProfileHealthReporter.SERVICE_DESCRIPTOR);
 
-        builder.setInstance(new MicroProfileHealthContextService(healthContextService, healthReporter))
-                .install();
+        builder.setInstance(new MicroProfileHealthContextService(healthContextService, healthReporter)).install();
     }
 
     private MicroProfileHealthContextService(Supplier<HealthContextService> healthContextService, Supplier<MicroProfileHealthReporter> healthReporter) {

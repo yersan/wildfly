@@ -65,7 +65,7 @@ public class CheckOperations extends AbstractRuntimeOnlyHandler {
 
     @Override
     protected void executeRuntimeStep(OperationContext context, ModelNode operation) {
-        ServiceName serviceName = context.getCapabilityServiceName(MicroProfileHealthSubsystemDefinition.MICROPROFILE_HEALTH_REPORTER_CAPABILITY, MicroProfileHealthReporter.class);
+        ServiceName serviceName = context.getCapabilityServiceName(MicroProfileHealthReporter.SERVICE_DESCRIPTOR);
         MicroProfileHealthReporter reporter = (MicroProfileHealthReporter) context.getServiceRegistry(false).getService(serviceName).getValue();
 
         SmallRyeHealth health = healthOperation.apply(reporter);
