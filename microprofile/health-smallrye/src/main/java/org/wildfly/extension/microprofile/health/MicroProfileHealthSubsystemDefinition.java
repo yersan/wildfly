@@ -21,6 +21,7 @@ import org.jboss.as.controller.registry.ManagementResourceRegistration;
 import org.jboss.dmr.ModelNode;
 import org.jboss.dmr.ModelType;
 import org.wildfly.extension.health.HealthSubsystemDefinition;
+import org.wildfly.subsystem.resource.executor.RuntimeOperationStepHandler;
 
 /**
  * @author <a href="http://jmesnil.net/">Jeff Mesnil</a> (c) 2018 Red Hat inc.
@@ -98,7 +99,7 @@ public class MicroProfileHealthSubsystemDefinition extends PersistentResourceDef
         super.registerOperations(resourceRegistration);
 
         if (registerRuntimeOperations) {
-            CheckOperations.register(resourceRegistration);
+            new RuntimeOperationStepHandler<>(new CheckOperationExecutor(this.reporter::get), CheckOperation.class).register(resourceRegistration);
         }
     }
 }
