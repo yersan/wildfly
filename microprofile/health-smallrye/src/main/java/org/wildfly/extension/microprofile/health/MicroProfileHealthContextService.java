@@ -5,8 +5,6 @@
 
 package org.wildfly.extension.microprofile.health;
 
-import static org.wildfly.extension.microprofile.health.MicroProfileHealthSubsystemDefinition.HTTP_CONTEXT_SERVICE;
-
 import java.util.function.Supplier;
 
 import io.smallrye.health.SmallRyeHealth;
@@ -26,15 +24,15 @@ import org.wildfly.extension.health.HealthContextService;
 public class MicroProfileHealthContextService implements Service {
 
     private final Supplier<MicroProfileHealthReporter> healthReporter;
-    private Supplier<HealthContextService> healthContextService;
+    private final Supplier<HealthContextService> healthContextService;
 
     static void install(OperationContext context) {
-        ServiceBuilder<?> serviceBuilder = context.getCapabilityServiceTarget().addService(HTTP_CONTEXT_SERVICE);
+        ServiceBuilder<?> builder = context.getCapabilityServiceTarget().addService();
 
-        Supplier<HealthContextService> healthContextService = serviceBuilder.requires(context.getCapabilityServiceName(MicroProfileHealthSubsystemDefinition.HEALTH_HTTP_CONTEXT_CAPABILITY, HealthContextService.class));
-        Supplier<MicroProfileHealthReporter> healthReporter = serviceBuilder.requires(context.getCapabilityServiceName(MicroProfileHealthSubsystemDefinition.MICROPROFILE_HEALTH_REPORTER_CAPABILITY, MicroProfileHealthReporter.class));
+        Supplier<HealthContextService> healthContextService = builder.requires(context.getCapabilityServiceName(MicroProfileHealthSubsystemDefinition.HEALTH_HTTP_CONTEXT_CAPABILITY, HealthContextService.class));
+        Supplier<MicroProfileHealthReporter> healthReporter = builder.requires(context.getCapabilityServiceName(MicroProfileHealthSubsystemDefinition.MICROPROFILE_HEALTH_REPORTER_CAPABILITY, MicroProfileHealthReporter.class));
 
-        serviceBuilder.setInstance(new MicroProfileHealthContextService(healthContextService, healthReporter))
+        builder.setInstance(new MicroProfileHealthContextService(healthContextService, healthReporter))
                 .install();
     }
 
