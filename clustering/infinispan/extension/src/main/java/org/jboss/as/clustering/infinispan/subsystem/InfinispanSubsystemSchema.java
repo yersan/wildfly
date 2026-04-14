@@ -76,9 +76,10 @@ public enum InfinispanSubsystemSchema implements SubsystemResourceXMLSchema<Infi
     VERSION_12_0(12, 0), // WildFly 23, EAP 7.4
     VERSION_13_0(13, 0), // WildFly 24-26
     VERSION_14_0(14, 0), // WildFly 27-35
-    VERSION_15_0(15, 0), // WildFly 36-present
+    VERSION_15_0(15, 0), // WildFly 36-39
+    VERSION_16_0(16, 0), // WildFly 40-present
     ;
-    static final InfinispanSubsystemSchema CURRENT = VERSION_15_0;
+    static final InfinispanSubsystemSchema CURRENT = VERSION_16_0;
 
     private final ResourceXMLParticleFactory factory = ResourceXMLParticleFactory.newInstance(this);
     private final VersionedNamespace<IntVersion, InfinispanSubsystemSchema> namespace;
