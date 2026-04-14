@@ -241,13 +241,13 @@ public enum InfinispanSubsystemSchema implements SubsystemResourceXMLSchema<Infi
     }
 
     private ResourceRegistrationXMLElement invalidationCacheElement() {
-        return this.clusteredCacheElementBuilder(CacheResourceRegistration.INVALIDATION)
+        return (this.since(VERSION_16_0) ? this.segmentedCacheElementBuilder(CacheResourceRegistration.INVALIDATION) : this.clusteredCacheElementBuilder(CacheResourceRegistration.INVALIDATION))
                 .withContent(this.cacheElementContentBuilder().build())
                 .build();
     }
 
     private ResourceRegistrationXMLElement replicatedCacheElement() {
-        return this.clusteredCacheElementBuilder(CacheResourceRegistration.REPLICATED)
+        return (this.since(VERSION_16_0) ? this.segmentedCacheElementBuilder(CacheResourceRegistration.REPLICATED) : this.clusteredCacheElementBuilder(CacheResourceRegistration.REPLICATED))
                 .withContent(this.sharedStateCacheElementContentBuilder().build())
                 .build();
     }

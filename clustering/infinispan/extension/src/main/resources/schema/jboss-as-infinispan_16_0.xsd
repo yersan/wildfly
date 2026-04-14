@@ -353,15 +353,27 @@
         </xs:complexContent>
     </xs:complexType>
 
+    <xs:complexType name="segmented-cache" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="tns:clustered-cache">
+                <xs:attribute name="segments" type="xs:int" default="128">
+                    <xs:annotation>
+                        <xs:documentation>Number of hash space segments (per cluster).</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
     <xs:complexType name="invalidation-cache">
         <xs:complexContent>
-            <xs:extension base="tns:clustered-cache"/>
+            <xs:extension base="tns:segmented-cache"/>
         </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="shared-state-cache" abstract="true">
         <xs:complexContent>
-            <xs:extension base="tns:clustered-cache">
+            <xs:extension base="tns:segmented-cache">
                 <xs:sequence>
                     <xs:element name="partition-handling" type="tns:partition-handling" minOccurs="0">
                         <xs:annotation>
@@ -391,21 +403,9 @@
         </xs:complexContent>
     </xs:complexType>
 
-    <xs:complexType name="segmented-cache" abstract="true">
-        <xs:complexContent>
-            <xs:extension base="tns:shared-state-cache">
-                <xs:attribute name="segments" type="xs:int" default="256">
-                    <xs:annotation>
-                        <xs:documentation>Number of hash space segments (per cluster).</xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-
     <xs:complexType name="distributed-cache">
         <xs:complexContent>
-            <xs:extension base="tns:segmented-cache">
+            <xs:extension base="tns:shared-state-cache">
                 <xs:attribute name="owners" type="xs:int" default="2">
                     <xs:annotation>
                         <xs:documentation>Number of cluster-wide replicas for each cache entry.</xs:documentation>
@@ -427,7 +427,7 @@
 
     <xs:complexType name="scattered-cache">
         <xs:complexContent>
-            <xs:extension base="tns:segmented-cache">
+            <xs:extension base="tns:shared-state-cache">
                 <xs:attribute name="bias-lifespan" type="xs:long" default="300000">
                     <xs:annotation>
                         <xs:documentation>When greater than zero, specifies the duration (in ms) that a cache entry will be cached on a non-owner following a write operation.</xs:documentation>
