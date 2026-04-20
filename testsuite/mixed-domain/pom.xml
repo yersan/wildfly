@@ -315,7 +315,7 @@
         <profile>
             <id>latest-ee-full-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>latest-ee-full-server-tests</name></property>
             </activation>
             <build>
                 <plugins>
@@ -331,8 +331,8 @@
                                         <feature-pack>
                                             <transitive>true</transitive>
                                             <groupId>${testsuite.ee.feature.pack.groupId}</groupId>
-                                            <artifactId>${latest.ee.feature.pack.artifactId}</artifactId>
-                                            <version>${testsuite.full.feature.pack.version}</version>
+                                            <artifactId>${testsuite.ee.feature.pack.artifactId}</artifactId>
+                                            <version>${testsuite.ee.feature.pack.version}</version>
                                             <included-packages>
                                                 <name>docs.examples.configs</name>
                                             </included-packages>
@@ -356,7 +356,7 @@
         <profile>
             <id>legacy-ee-full-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>legacy-ee-full-server-tests</name></property>
             </activation>
             <build>
                 <plugins>

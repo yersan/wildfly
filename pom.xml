@@ -104,10 +104,14 @@
         <legacy.ee.artifactid.segment>ee-${legacy.jakarta.version}</legacy.ee.artifactid.segment>
         <legacy.ee.feature.pack.artifactId>wildfly-${legacy.ee.artifactid.segment}-feature-pack</legacy.ee.feature.pack.artifactId>
         <legacy.ee.channel.artifactId>wildfly-${legacy.ee.artifactid.segment}</legacy.ee.channel.artifactId>
+        <legacy.full.build.artifactId>wildfly-${legacy.ee.artifactid.segment}-expansion-build</legacy.full.build.artifactId>
+        <legacy.full.dist.artifactId>wildfly-${legacy.ee.artifactid.segment}-expansion-dist</legacy.full.dist.artifactId>
         <latest.jakarta.version>11</latest.jakarta.version> <!-- for downstream use -->
         <latest.ee.artifactid.segment>ee</latest.ee.artifactid.segment>
         <latest.ee.feature.pack.artifactId>wildfly-${latest.ee.artifactid.segment}-galleon-pack</latest.ee.feature.pack.artifactId>
         <latest.ee.channel.artifactId>wildfly-${latest.ee.artifactid.segment}</latest.ee.channel.artifactId>
+        <latest.full.build.artifactId>wildfly-build</latest.full.build.artifactId>
+        <latest.full.dist.artifactId>wildfly-dist</latest.full.dist.artifactId>
         <preview.dist.product.release.name>WildFly Preview</preview.dist.product.release.name>
         <preview.dist.product.slot>${full.dist.product.slot}</preview.dist.product.slot>
         <preview.dist.product.release.version>${full.dist.product.release.version}</preview.dist.product.release.version>

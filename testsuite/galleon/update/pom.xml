@@ -150,7 +150,7 @@
         <profile>
             <id>latest-ee-only-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>latest-ee-only-server-tests</name></property>
             </activation>
             <properties>
                 <!-- Skip the WF feature pack test -->
@@ -161,7 +161,7 @@
         <profile>
             <id>legacy-ee-only-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>legacy-ee-only-server-tests</name></property>
             </activation>
             <properties>
                 <!-- Skip the WF feature pack test -->

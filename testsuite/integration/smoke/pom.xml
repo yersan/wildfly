@@ -1193,7 +1193,7 @@
         <profile>
             <id>latest-ee-full-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>latest-ee-full-server-tests</name></property>
             </activation>
             <build>
                 <plugins>
@@ -1253,7 +1253,7 @@
         <profile>
             <id>legacy-ee-full-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>legacy-ee-full-server-tests</name></property>
             </activation>
             <build>
                 <plugins>

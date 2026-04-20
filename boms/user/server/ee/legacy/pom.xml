@@ -35,6 +35,25 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- include client BOMs -->
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-ejb-client-bom</artifactId>
+                <version>${ee.maven.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-jaxws-client-bom</artifactId>
+                <version>${ee.maven.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly</groupId>
+                <artifactId>wildfly-jms-client-bom</artifactId>
+                <version>${ee.maven.version}</version>
+                <type>pom</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -47,7 +66,7 @@
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.channels</groupId>
+            <groupId>${channels.maven.groupId}</groupId>
             <artifactId>wildfly-ee-10</artifactId>
             <version>${ee.maven.version}</version>
             <type>pom</type>
@@ -80,7 +99,7 @@
                             <channels>
                                 <channel>
                                     <manifest>
-                                        <groupId>org.wildfly.channels</groupId>
+                                        <groupId>${channels.maven.groupId}</groupId>
                                         <artifactId>wildfly-ee-10</artifactId>
                                         <version>${version.boms.channel.ee}</version>
                                     </manifest>

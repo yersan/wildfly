@@ -123,7 +123,7 @@
         <profile>
             <id>latest-ee-full-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>latest-ee-full-server-tests</name></property>
             </activation>
             <properties>
                 <testsuite.default.base.build.groupId>${ee.maven.groupId}</testsuite.default.base.build.groupId>
@@ -135,11 +135,11 @@
 
         <!-- Configures testsuite to use the latest non-default Galleon pack to provision EE content.
              Test installations do not include functionality provided by the wildfly feature pack,
-             so using -P!expansion-server-tests must be used. -->
+             so -P-expansion-server-tests must be used. -->
         <profile>
             <id>latest-ee-only-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>latest-ee-only-server-tests</name></property>
             </activation>
             <properties>
                 <testsuite.default.base.build.groupId>${ee.maven.groupId}</testsuite.default.base.build.groupId>
@@ -154,7 +154,7 @@
         <profile>
             <id>legacy-ee-full-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>legacy-ee-full-server-tests</name></property>
             </activation>
             <properties>
                 <testsuite.default.base.build.groupId>${ee.maven.groupId}</testsuite.default.base.build.groupId>
@@ -166,11 +166,11 @@
 
         <!-- Configures testsuite to use the legacy non-default feature pack to provision EE content.
              Test installations do not include functionality provided by the wildfly feature pack,
-             so -P!expansion-server-tests must be used. -->
+             so -P-expansion-server-tests must be used. -->
         <profile>
             <id>legacy-ee-only-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>legacy-ee-only-server-tests</name></property>
             </activation>
             <properties>
                 <testsuite.default.base.build.groupId>${ee.maven.groupId}</testsuite.default.base.build.groupId>

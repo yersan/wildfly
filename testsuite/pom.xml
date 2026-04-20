@@ -104,9 +104,9 @@
         <jboss.dist>${project.basedir}/../${wildfly.build.output.dir}</jboss.dist>
         <jboss.home>${jboss.dist}</jboss.home>
 
-        <!-- Galleon feature pack to use in testsuite provisioning executions that provide content
-             that *could* be obtained solely from the wildfly-ee-galleon-pack or its dependencies.
-             Test jobs can override this using -D to test using different feature pack.
+        <!-- Galleon feature pack to use in testsuite provisioning executions that provides content
+             that *could* be obtained solely from the wildfly-ee-galleon-pack.
+             Note: It's valid to use an FP here that provides the EE content via its dependencies.
         -->
         <testsuite.ee.feature.pack.groupId>${full.maven.groupId}</testsuite.ee.feature.pack.groupId>
         <testsuite.ee.feature.pack.artifactId>wildfly-galleon-pack</testsuite.ee.feature.pack.artifactId>
@@ -141,7 +141,7 @@
         <dependency.management.import.test.artifact>wildfly-standard-test-bom</dependency.management.import.test.artifact>
 
         <!-- Name of the profile that defines what feature packs were used to provision the test server.
-             Profiles set this; the value here is the profile with settings that much the global default values. -->
+             Profiles set this; the value here is the profile with settings that match the global default values. -->
         <server.provisioning.profile>latest-ee-full-server-tests</server.provisioning.profile>
 
         <!-- IP address defaults. -->
@@ -649,9 +649,11 @@
         <profile>
             <id>latest-ee-full-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>latest-ee-full-server-tests</name></property>
             </activation>
             <properties>
+                <!-- Tell tests what profile was used for provisioning -->
+                <server.provisioning.profile>latest-ee-full-server-tests</server.provisioning.profile>
                 <!-- Use the latest version of the wildfly-ee FP -->
                 <testsuite.ee.feature.pack.groupId>${ee.maven.groupId}</testsuite.ee.feature.pack.groupId>
                 <testsuite.ee.feature.pack.artifactId>${latest.ee.feature.pack.artifactId}</testsuite.ee.feature.pack.artifactId>
@@ -666,8 +668,6 @@
                 <!-- For cases where we know for sure we don't want the 'wildfly' FP or channel, we can use these -->
                 <testsuite.ee.only.channel.artifactId>${latest.ee.channel.artifactId}</testsuite.ee.only.channel.artifactId>
                 <testsuite.ee.only.feature.pack.artifactId>${latest.ee.feature.pack.artifactId}</testsuite.ee.only.feature.pack.artifactId>
-                <!-- Tell tests what profile was used for provisioning -->
-                <server.provisioning.profile>latest-ee-full-server-tests</server.provisioning.profile>
             </properties>
             <build>
                 <pluginManagement>
@@ -708,13 +708,15 @@
 
         <!-- Configures testsuite to use the latest non-default feature pack to provision EE content.
              Test installations do not include functionality provided by the wildfly feature pack,
-             so using -P!expansion-server-tests must be used. -->
+             so -P-expansion-server-tests must be used. -->
         <profile>
             <id>latest-ee-only-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>latest-ee-only-server-tests</name></property>
             </activation>
             <properties>
+                <!-- Tell tests what profile was used for provisioning -->
+                <server.provisioning.profile>latest-ee-only-server-tests</server.provisioning.profile>
                 <!-- Use the latest version of the wildfly-ee FP -->
                 <testsuite.ee.feature.pack.groupId>${ee.maven.groupId}</testsuite.ee.feature.pack.groupId>
                 <testsuite.ee.feature.pack.artifactId>${latest.ee.feature.pack.artifactId}</testsuite.ee.feature.pack.artifactId>
@@ -729,8 +731,6 @@
                 <!-- For cases where we know for sure we don't want the 'wildfly' FP or channel, we can use these -->
                 <testsuite.ee.only.channel.artifactId>${latest.ee.channel.artifactId}</testsuite.ee.only.channel.artifactId>
                 <testsuite.ee.only.feature.pack.artifactId>${latest.ee.feature.pack.artifactId}</testsuite.ee.only.feature.pack.artifactId>
-                <!-- Tell tests what profile was used for provisioning -->
-                <server.provisioning.profile>latest-ee-only-server-tests</server.provisioning.profile>
             </properties>
         </profile>
 
@@ -739,9 +739,11 @@
         <profile>
             <id>legacy-ee-full-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>legacy-ee-full-server-tests</name></property>
             </activation>
             <properties>
+                <!-- Tell tests what profile was used for provisioning -->
+                <server.provisioning.profile>legacy-ee-full-server-tests</server.provisioning.profile>
                 <testsuite.ee.feature.pack.groupId>${ee.maven.groupId}</testsuite.ee.feature.pack.groupId>
                 <testsuite.ee.feature.pack.artifactId>${legacy.ee.feature.pack.artifactId}</testsuite.ee.feature.pack.artifactId>
                 <testsuite.ee.feature.pack.version>${ee.maven.version}</testsuite.ee.feature.pack.version>
@@ -755,8 +757,6 @@
                 <!-- For cases where we know for sure we don't want the 'wildfly' FP or channel, we can use these -->
                 <testsuite.ee.only.channel.artifactId>${legacy.ee.channel.artifactId}</testsuite.ee.only.channel.artifactId>
                 <testsuite.ee.only.feature.pack.artifactId>${legacy.ee.feature.pack.artifactId}</testsuite.ee.only.feature.pack.artifactId>
-                <!-- Tell tests what profile was used for provisioning -->
-                <server.provisioning.profile>legacy-ee-full-server-tests</server.provisioning.profile>
             </properties>
             <build>
                 <pluginManagement>
@@ -788,13 +788,15 @@
 
         <!-- Configures testsuite to use the legacy non-default feature pack to provision EE content.
              Test installations do not include functionality provided by the wildfly feature pack,
-             so -P!expansion-server-tests must be used. -->
+             so -P-expansion-server-tests must be used. -->
         <profile>
             <id>legacy-ee-only-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>legacy-ee-only-server-tests</name></property>
             </activation>
             <properties>
+                <!-- Tell tests what profile was used for provisioning -->
+                <server.provisioning.profile>legacy-ee-only-server-tests</server.provisioning.profile>
                 <testsuite.ee.feature.pack.groupId>${ee.maven.groupId}</testsuite.ee.feature.pack.groupId>
                 <testsuite.ee.feature.pack.artifactId>${legacy.ee.feature.pack.artifactId}</testsuite.ee.feature.pack.artifactId>
                 <testsuite.ee.feature.pack.version>${ee.maven.version}</testsuite.ee.feature.pack.version>
@@ -808,8 +810,6 @@
                 <!-- For cases where we know for sure we don't want the 'wildfly' FP or channel, we can use these -->
                 <testsuite.ee.only.channel.artifactId>${legacy.ee.channel.artifactId}</testsuite.ee.only.channel.artifactId>
                 <testsuite.ee.only.feature.pack.artifactId>${legacy.ee.feature.pack.artifactId}</testsuite.ee.only.feature.pack.artifactId>
-                <!-- Tell tests what profile was used for provisioning -->
-                <server.provisioning.profile>legacy-ee-only-server-tests</server.provisioning.profile>
             </properties>
         </profile>
 
@@ -822,6 +822,8 @@
                 </property>
             </activation>
             <properties>
+                <!-- Tell tests what profile was used for provisioning -->
+                <server.provisioning.profile>preview-server-tests</server.provisioning.profile>
                 <!-- The pre-built legacy installations are not found under the top-level source root -->
                 <testsuite.default.build.project.root>preview</testsuite.default.build.project.root>
                 <!-- The pre-built server directory includes 'preview-' in its name -->
@@ -837,8 +839,6 @@
                 <testsuite.test.feature.pack.artifactId>wildfly-test-feature-pack-preview</testsuite.test.feature.pack.artifactId>
                 <!-- If there are EE-version-specific test sources, uses the ee11 ones -->
                 <additional.ee.test.source>ee11</additional.ee.test.source>
-                <!-- Tell tests what profile was used for provisioning -->
-                <server.provisioning.profile>preview-server-tests</server.provisioning.profile>
             </properties>
         </profile>
 

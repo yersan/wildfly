@@ -354,7 +354,7 @@
         <profile>
             <id>latest-ee-only-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>latest-ee-only-server-tests</name></property>
             </activation>
             <properties>
                 <!-- Don't run expansion tests if we're configured to test wildfly-ee -->
@@ -366,7 +366,7 @@
         <profile>
             <id>legacy-ee-only-server-tests</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property><name>legacy-ee-only-server-tests</name></property>
             </activation>
             <properties>
                 <!-- Don't run expansion tests if we're configured to test wildfly-ee -->
