@@ -44,6 +44,14 @@ public class HotRodUserManagementProvider implements DistributableUserManagement
     private static final String DEFAULT_CONFIGURATION = """
 {
     "distributed-cache": {
+        "encoding" : {
+            "key" : {
+                "media-type" : "application/octet-stream"
+            },
+            "value" : {
+                "media-type" : "application/octet-stream"
+            }
+        },
         "mode" : "SYNC",
         "transaction" : {
             "mode" : "NON_XA",
