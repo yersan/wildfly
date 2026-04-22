@@ -341,8 +341,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.wildfly.channels</groupId>
-            <artifactId>wildfly-ee</artifactId>
+            <groupId>${channels.maven.groupId}</groupId>
+            <artifactId>${testsuite.ee.only.channel.artifactId}</artifactId>
             <version>${ee.maven.version}</version>
             <type>yaml</type>
             <classifier>manifest</classifier>
