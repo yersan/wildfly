@@ -468,7 +468,7 @@
         <profile>
             <id>javadocDist</id>
             <properties>
-                <javadoc.branding>WildFly public API - ${project.version}</javadoc.branding>
+                <javadoc.branding>${legacy.dist.product.release.name} public API - ${project.version}</javadoc.branding>
             </properties>
             <build>
                 <plugins>
