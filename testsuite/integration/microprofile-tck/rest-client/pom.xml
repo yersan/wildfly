@@ -498,29 +498,6 @@
                             <galleon-options>
                                 <optional-packages>passive+</optional-packages>
                             </galleon-options>
-                            <feature-packs>
-                                <feature-pack>
-                                    <groupId>${testsuite.full.feature.pack.groupId}</groupId>
-                                    <artifactId>${testsuite.full.feature.pack.artifactId}</artifactId>
-                                    <version>${testsuite.full.feature.pack.version}</version>
-                                    <inherit-configs>false</inherit-configs>
-                                    <inherit-packages>false</inherit-packages>
-                                    <included-configs>
-                                        <config>
-                                            <model>standalone</model>
-                                            <name>standalone.xml</name>
-                                        </config>
-                                        <config>
-                                            <model>standalone</model>
-                                            <name>standalone-full.xml</name>
-                                        </config>
-                                        <config>
-                                            <model>standalone</model>
-                                            <name>standalone-microprofile.xml</name>
-                                        </config>
-                                    </included-configs>
-                                </feature-pack>
-                            </feature-packs>
                         </configuration>
                     </execution>
                      <!-- Override the bootable jar packaging from the parent to add res-client tck specific settings -->
