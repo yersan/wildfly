@@ -24,4 +24,5 @@ Set-Global-Variables -baseDir $dir
 
 $PROG_ARGS = Get-Java-Arguments -entryModule "org.jboss.as.appclient" -serverOpts $SERVER_OPTS -logFileProperties "$JBOSS_HOME\appclient\configuration\logging.properties" -logFile "$JBOSS_HOME\appclient\log\appclient.log"
 
+Display-Array $PROG_ARGS
 Start-WildFly-Process -programArguments $PROG_ARGS
