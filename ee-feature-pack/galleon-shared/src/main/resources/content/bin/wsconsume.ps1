@@ -20,6 +20,9 @@ if (Test-Path env:JAVA_OPTS) {
 $JAVA_OPTS+="-Dprogram.name=wsconsume.ps1"
 
 $PROG_ARGS = Get-Java-Arguments -entryModule "org.jboss.ws.tools.wsconsume" -logFileProperties $null -serverOpts $ARGS
+
+Display-Environment $global:FINAL_JAVA_OPTS
+
 & $JAVA $PROG_ARGS
 
 Env-Clean-Up
