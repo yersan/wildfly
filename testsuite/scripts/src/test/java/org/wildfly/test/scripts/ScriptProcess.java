@@ -64,7 +64,7 @@ public class ScriptProcess implements AutoCloseable, ProcessHandle {
     private ProcessHandle handleDelegate;
     private Path stdoutLog;
     private String lastExecutedCmd;
-    private Map<String, String> lastEnv;
+    private final Map<String, String> lastEnv;
 
     ScriptProcess(final Path containerHome, final String scriptBaseName, final Shell shell, final long timeout) {
         this.containerHome = containerHome;
