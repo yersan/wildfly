@@ -822,7 +822,7 @@ public class SomeExtension implements Extension {
         //....
     }
 
-    static void registerTransformers(final SubsystemRegistration subsystem) {
+    static void registerTransformers(final SubsystemTransformerRegistration subsystem) {
         registerTransformers_1_1_0(subsystem);
         registerTransformers_1_2_0(subsystem);
     }
@@ -830,7 +830,7 @@ public class SomeExtension implements Extension {
     /**
      * Registers transformers from the current version to ModelVersion 1.1.0
      */
-    private static void registerTransformers_1_1_0(final SubsystemRegistration subsystem) {
+    private static void registerTransformers_1_1_0(final SubsystemTransformerRegistration subsystem) {
         final ModelVersion version = ModelVersion.create(1, 1, 0);
 
         //The default resource transformer forwards all operations
@@ -860,7 +860,7 @@ this has ModelVersion 2.0.0).
 
 [source,java,options="nowrap"]
 ----
-    private void registerTransformers(SubsystemRegistration subsystem) {
+    private void registerTransformers(SubsystemTransformerRegistration subsystem) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance();
         //These new attributes are assumed to be 'true' in the old version but default to false in the current version. So discard if 'true' and reject if 'undefined'.
         builder.getAttributeBuilder()
@@ -1357,7 +1357,7 @@ from the `jpa` subsystem:
 
 [source,java,options="nowrap"]
 ----
-    private void initializeTransformers_1_1_0(SubsystemRegistration subsystemRegistration) {
+    private void initializeTransformers_1_1_0(SubsystemTransformerRegistration subsystemRegistration) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance();
         builder.getAttributeBuilder()
             .setDiscard(
@@ -1402,7 +1402,7 @@ One valid use for `DiscardAttributeChecker.ALWAYS` can be found in the
 
 [source,java,options="nowrap"]
 ----
-    private static void registerTransformers_1_1_0(SubsystemRegistration subsystemRegistration) {
+    private static void registerTransformers_1_1_0(SubsystemTransformerRegistration subsystemRegistration) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance()
                 .getAttributeBuilder()
                  //...
@@ -1604,7 +1604,7 @@ in
 
 [source,java,options="nowrap"]
 ----
-    private void initializeTransformers_1_1_0(SubsystemRegistration subsystemRegistration) {
+    private void initializeTransformers_1_1_0(SubsystemTransformerRegistration subsystemRegistration) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance();
         builder.getAttributeBuilder()
             .setDiscard(
@@ -1918,14 +1918,14 @@ public class SomeExtension implements Extension {
         //....
     }
 
-    private void registerTransformers(final SubsystemRegistration subsystem) {
+    private void registerTransformers(final SubsystemTransformerRegistration subsystem) {
         registerTransformers_1_0_0(subsystem);
     }
 
     /**
      * Registers transformers from the current version to ModelVersion 1.0.0
      */
-    private void registerTransformers_1_0_0(SubsystemRegistration subsystem) {
+    private void registerTransformers_1_0_0(SubsystemTransformerRegistration subsystem) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance();
         builder.getAttributeBuilder()
             .addRejectCheck(RejectAttributeChecker.DEFINED, "attr1")
@@ -1977,7 +1977,7 @@ where we reject any defined occurrences of our new attribute `new-attr`:
 
 [source,java,options="nowrap"]
 ----
-    private void registerTransformers(final SubsystemRegistration subsystem) {
+    private void registerTransformers(final SubsystemTransformerRegistration subsystem) {
         registerTransformers_1_0_0(subsystem);
         registerTransformers_1_1_0(subsystem);
     }
@@ -1985,7 +1985,7 @@ where we reject any defined occurrences of our new attribute `new-attr`:
     /**
      * Registers transformers from the current version to ModelVersion 1.1.0
      */
-    private void registerTransformers_1_1_0(SubsystemRegistration subsystem) {
+    private void registerTransformers_1_1_0(SubsystemTransformerRegistration subsystem) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance();
         builder.getAttributeBuilder()
             .addRejectCheck(RejectAttributeChecker.DEFINED, "new-attr")
@@ -2005,7 +2005,7 @@ you can see 1.0.0 also rejects a defined 'attr1' in addition to the
     /**
      * Registers transformers from the current version to ModelVersion 1.0.0
      */
-    private void registerTransformers_1_0_0(SubsystemRegistration subsystem) {
+    private void registerTransformers_1_0_0(SubsystemTransformerRegistration subsystem) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance();
         builder.getAttributeBuilder()
             .addRejectCheck(RejectAttributeChecker.DEFINED, "attr1", "new-attr")
@@ -2030,23 +2030,23 @@ transformation across one version delta.
 
 [source,java,options="nowrap"]
 ----
-    private void registerTransformers(SubsystemRegistration subsystem) {
+    private void registerTransformers(SubsystemTransformerRegistration subsystem) {
         ModelVersion version1_1_0 = ModelVersion.create(1, 1, 0);
         ModelVersion version1_0_0 = ModelVersion.create(1, 0, 0);
 
         ChainedTransformationDescriptionBuilder chainedBuilder =
-              TransformationDescriptionBuilder.Factory.createChainedSubystemInstance(subsystem.getSubsystemVersion());
+              TransformationDescriptionBuilder.Factory.createChainedSubystemInstance(subsystem.getCurrentSubsystemVersion());
 
         //Differences between the current version and 1.1.0
         ResourceTransformationDescriptionBuilder builder110 =
-            chainedBuilder.create(subsystem.getSubsystemVersion(), version1_1_0);
+            chainedBuilder.createBuilder(subsystem.getCurrentSubsystemVersion(), version1_1_0);
         builder110.getAttributeBuilder()
             .addRejectCheck(RejectAttributeChecker.DEFINED, "new-attr")
             .end();
 
         //Differences between the 1.1.0 and 1.0.0
         ResourceTransformationDescriptionBuilder builder100 =
-            chainedBuilder.create(subsystem.getSubsystemVersion(), version1_0_0);
+            chainedBuilder.createBuilder(version1_1_0, version1_0_0);
         builder100.getAttributeBuilder()
             .addRejectCheck(RejectAttributeChecker.DEFINED, "attr1")
             .end();
@@ -2374,7 +2374,7 @@ ModelVersion 1.2.0.
         }
     }
 
-    private void registerTransformers_1_2(SubsystemRegistration registration) {
+    private void registerTransformers_1_2(SubsystemTransformerRegistration registration) {
         TransformationDescription.Tools.register(get1_2_0_1_3_0Description(), registration, VERSION_1_2);
     }
 
@@ -2426,7 +2426,7 @@ this attribute:
 
 [source,java,options="nowrap"]
 ----
-    private void registerTransformers_1_2(SubsystemRegistration registration) {
+    private void registerTransformers_1_2(SubsystemTransformerRegistration registration) {
         TransformationDescription.Tools.register(get1_2_0_1_3_0Description(), registration, VERSION_1_2);
     }
 
@@ -2504,7 +2504,7 @@ WeldExtension:
 
 [source,java,options="nowrap"]
 ----
-    private void registerTransformers(SubsystemRegistration subsystem) {
+    private void registerTransformers(SubsystemTransformerRegistration subsystem) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance();
         //These new attributes are assumed to be 'true' in the old version but default to false in the current version. So discard if 'true' and reject if 'undefined'.
         builder.getAttributeBuilder()
